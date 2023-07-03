@@ -1,0 +1,24 @@
+{
+	"name": "linenws-server",
+	"version": "1.0.3",
+	"description": "An easy-to-use wrapper around the ws api for an express-like feel",
+	"main": "index.js",
+	"scripts": {
+		"test": "nodemon test",
+		"postversion": "git push && git push --tags && rm -rf build/temp"
+	},
+	"keywords": [],
+	"author": "RealLinen",
+	"license": "MIT",
+	"devDependencies": {
+		"nodemon": "^1.19.2"
+	},
+	"dependencies": {
+		"@hapi/joi": "^16.1.1",
+		"ws": "^7.1.2"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/RealLinen/linenws-server/Modules/NPM/linenws-server"
+	}
+}

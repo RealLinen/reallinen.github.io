@@ -1,6 +1,7 @@
-// Import this into ur html script with: <script src="https://reallinen.github.io/Modules/ws.js" type="text/javascript"></script>
+// Import this into ur html script with: <script src="https://reallinen.github.io/Files/linenws-html-client.js" type="text/javascript"></script>
 
 // THIS IS FOR TO IMPORT INSIDE UR HTML SCRIPT.
+
 /* Usage:
 (async()=>{
     const socket = await WS.Connect("localhost:3000/ws_port") // if you dont include "wss://" or "ws://" it will automaticallly be included
@@ -19,7 +20,9 @@
     // socket.disconnect( <(optional) reason> ) // The reason will be sent before disconnecting
 })()
 */
+
 const socketConnections = {};
+
 this.WS = {
   Connect: function(t, ...e) {
     if (!(t = (t = "string" == typeof t && t || null) && (!t.includes("ws") && "ws://" + t.replace("://", "").replace("//", "") || t) || null)) return null;
