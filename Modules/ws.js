@@ -1,3 +1,4 @@
+// Import this into ur html script with: <script src="https://reallinen.github.io/Modules/ws.js" type="text/javascript"></script>
 
 // THIS IS FOR TO IMPORT INSIDE UR HTML SCRIPT.
 /* Usage:
