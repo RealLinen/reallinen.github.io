@@ -98,7 +98,7 @@ end
 
 return Socket
 --[[
-local connection = Socket.Connect("wss://localhost:3000")
+local connection = Socket.Connect("ws://localhost:3000") -- If you do not include "ws://" or "wss://" it will automatically default to "ws:// for you
 if(type(connection)~="table") then return print("WS Connection Failed: ", connection); end
 
 connection.onMessage("test", function(data)
