@@ -101,7 +101,7 @@ return Socket
 local connection = Socket.Connect("ws://localhost:3000") -- If you do not include "ws://" or "wss://" it will automatically default to "ws:// for you
 if(type(connection)~="table") then return print("WS Connection Failed: ", connection); end
 
-connection.onMessage("test", function(data)
+connection.onMessage("test_returned", function(data) -- you have to add a server onMessage event to recieve "test" and then emit "test_returned" to the client.
     print("Method: test |", "Data:", data)
 end)
 
@@ -109,5 +109,5 @@ connection.on("disconnect", function(lastMessage)
     print("Disconnected:", lastMessage)
 end)
 
-connection.emit("test", 1928313123) 
+connection.emit("test", 1928313123) -- this will send a "test" message to the SERVER
 ]]
