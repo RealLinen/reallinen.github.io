@@ -1,9 +1,12 @@
 -- Written by: Linen#3485 [ on discord.com ]
 -- Optimized for performance, can be re-executed as many times as you want
 -- V3rmillion Profile: https://v3rmillion.net/member.php?action=profile&uid=2467334
+-- Version: 0.1
 
 local Module = { LuaLoopCount = 0 }
 local CustomData = {}
+
+local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
 
 setmetatable(CustomData, {
@@ -82,13 +85,13 @@ Module["Loop"] = function(func: "Function to run in the loop", seconds: "Each se
                     tim = tick()
                     WrapFunction(function(...)
                         local suc, err = pcall(func, ...)
-                        if not suc then safePrint((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
+                        if not suc then Module["print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
                     end, ...)
                 end
             else
                 WrapFunction(function(...)
                     local suc, err = pcall(func, ...)
-                    if not suc then safePrint((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
+                    if not suc then Module["print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
                 end, ...)
             end
         end
@@ -99,7 +102,7 @@ Module["Loop"] = function(func: "Function to run in the loop", seconds: "Each se
     else
         WrapFunction(function(...)
             local suc, err = pcall(mainLoop, ...)
-            if not suc then safePrint((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
+            if not suc then Module["print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
         end, ...)
     end
     --|||||||||||||||
@@ -133,14 +136,14 @@ end
 
 --~~~~~~~~~~~~ Caching Framework
 Module.Cache = {
-    add = function(name, value)
+    add = function(name: string, value: any)
         local GlobalCache = getgenv().LU_Loaded or Module:LoadCache()
         local cacheName = name or #GlobalCache["Cache"]+1
 
         GlobalCache["Cache"][cacheName] = value
     end,
 
-    del = function()
+    del = function(name: string)
         local GlobalCache = getgenv().LU_Loaded or Module:LoadCache()
         local cacheName = name or #GlobalCache["Cache"]+1
     
@@ -197,13 +200,13 @@ Module.Storage = {
         end
 
         WrapFunction(function() -- Basically how the data saves
-            if httpget then
+            if httpget then -- celery detected?!?!
                 warn("Cant save file on celery, causes lag. But you can manually write the new options ur self.")
                 pcall(new_file, baseName, "{}")
                 return;
             end
 
-            LuaLoop(function()
+            Module["Loop"](function()
                 local JsonPassed, JsonToString = pcall(function()
                     return HttpService:JSONEncode(Module.Storage["Data"])
                 end)
