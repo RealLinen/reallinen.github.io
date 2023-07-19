@@ -1,7 +1,8 @@
 -- Written by: Linen#3485 [ on discord.com ]
 -- Optimized for performance, can be re-executed as many times as you want
+
 -- V3rmillion Profile: https://v3rmillion.net/member.php?action=profile&uid=2467334
--- Version 0.3
+-- Version 0.35
 
 local Module = { LuaLoopCount = 0 }
 local CustomData = {}
@@ -52,7 +53,7 @@ function Module:EndObject(object, tb, ind)
     return false
 end
 
-Module["Wait"] = function()
+Module["L_wait"] = function()
     for i = 1, 5 do 
         task.wait()
         RunService.Heartbeat:Wait()
@@ -112,7 +113,7 @@ Module["isnumber"] = function(str)
     return err
 end
 
-Module["print"] = function(...)
+module["L_print"] = function(...)
     local tb = {...}
     local doneMessage = ""
     for i = 1, #tb do
@@ -146,13 +147,13 @@ Module["Loop"] = function(func: "Function to run in the loop", seconds: "Each se
                     tim = tick()
                     WrapFunction(function(...)
                         local suc, err = pcall(func, ...)
-                        if not suc then Module["print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
+                        if not suc then module["L_print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
                     end, ...)
                 end
             else
                 WrapFunction(function(...)
                     local suc, err = pcall(func, ...)
-                    if not suc then Module["print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
+                    if not suc then module["L_print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
                 end, ...)
             end
         end
@@ -163,7 +164,7 @@ Module["Loop"] = function(func: "Function to run in the loop", seconds: "Each se
     else
         WrapFunction(function(...)
             local suc, err = pcall(mainLoop, ...)
-            if not suc then Module["print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
+            if not suc then module["L_print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
         end, ...)
     end
     --|||||||||||||||
@@ -311,3 +312,17 @@ end
 
 Module:Load() -- Important / required
 return Module
+
+--[[ Usage Example:
+
+local LinenModule: { L_print: "function( ... )", Loop: "function( func, seconds, yeild, ... )" } = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/LinenModule.lua"))()
+local Storage: { Data: {}, Load: "function( folder_name: string )" }, Http: { GET: "function( link: string )" }, Cache: { add: "function( name: string, object: anything/dynamic )", del: "function( name: string )" } = LinenModule["Storage"], LinenModule["Http"], LinenModule["Cache"]
+   
+for i,v in next, LinenModule do
+    if i=="print" then continue; end
+    getgenv()[i] = v
+end
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+print(Loop, L_print, FileExist, FolderExist, CheckType, Storage) -- function, function, function, function, function, { Data: {}, Load: function }
+
+]]
