@@ -1,13 +1,14 @@
 -- Written by: Linen#3485 [ on discord.com ]
 -- Optimized for performance, can be re-executed as many times as you want
 -- V3rmillion Profile: https://v3rmillion.net/member.php?action=profile&uid=2467334
--- Version: 0.1
+-- Version 0.2
 
 local Module = { LuaLoopCount = 0 }
 local CustomData = {}
 
 local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
 
 setmetatable(CustomData, {
     __index = function(...)
@@ -49,6 +50,57 @@ function Module:EndObject(object, tb, ind)
     end
 
     return false
+end
+
+Module["TweenObjects"] = function(tweeninfo, propertyTable, ...)
+    local objects = {...}
+    propertyTable = type(propertyTable)=="table" and propertyTable or {}
+    tweeninfo = typeof(tweeninfo)=="TweenInfo" and tweeninfo or TweenInfo.new(1)
+    local Tweens = {}
+
+    for i,v in next, objects do
+        pcall(function()
+            local Tween = TweenService:Create(v, tweeninfo, propertyTable)
+            Tweens[v] = Tween
+        end)
+    end
+
+    for i,v in next, Tweens do
+        v:Play()
+    end
+    return Tweens
+end
+
+Module["FileExist"] = function(...)
+    local suc,err = pcall(read_file, ...)
+    return suc and err or false
+end
+
+Module["FolderExist"] = function(...)
+    local suc,err = pcall(folder_exist, ...)
+    return suc and err or false
+end
+
+Module["getTableCount"] = function(v)
+    if type(v)~="table" then return 0 end
+    local count = 0;for i,v in next, v do count+=1 end;return count
+end
+
+Module["getInTable"] = function(v, amt: number)
+    if type(v)~="table" then return nil end
+    amt = type(amt)=="number" and amt or 1
+    local count = 0;for i,v in next, v do count+=1;if count==amt then return v, i, amt end end;return nil
+end
+
+Module["CheckType"] = function(a, b, c)
+    if type(b)~="string" then return c end
+    return typeof(a):lower()==b:lower() and a or c
+end
+
+Module["isnumber"] = function(str)
+    local suc,err = pcall(function()return str/1 end)
+    if not suc then return false; end
+    return err
 end
 
 Module["print"] = function(...)
