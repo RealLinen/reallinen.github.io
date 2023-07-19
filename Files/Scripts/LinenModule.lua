@@ -1,7 +1,7 @@
 -- Written by: Linen#3485 [ on discord.com ]
 -- Optimized for performance, can be re-executed as many times as you want
 -- V3rmillion Profile: https://v3rmillion.net/member.php?action=profile&uid=2467334
--- Version 0.2
+-- Version 0.3
 
 local Module = { LuaLoopCount = 0 }
 local CustomData = {}
@@ -50,6 +50,15 @@ function Module:EndObject(object, tb, ind)
     end
 
     return false
+end
+
+Module["Wait"] = function()
+    for i = 1, 5 do 
+        task.wait()
+        RunService.Heartbeat:Wait()
+        RunService.RenderStepped:Wait()
+        RunService.PreRender:Wait() 
+    end
 end
 
 Module["TweenObjects"] = function(tweeninfo, propertyTable, ...)
