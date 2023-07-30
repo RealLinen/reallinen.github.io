@@ -2,7 +2,7 @@
 -- Optimized for performance, can be re-executed as many times as you want
 
 -- V3rmillion Profile: https://v3rmillion.net/member.php?action=profile&uid=2467334
--- Version 0.4
+-- Version 0.5
 
 local Module = { LuaLoopCount = 0 }
 local CustomData = {}
@@ -287,7 +287,7 @@ function Module:Load(force)
     if not force and Module.Loaded then return; end -- If you want to re-load the module for some reason [ not recommended ]
 
     if type(getgenv().LU_Loaded) == "table" then
-        for i, ev in next, getgenv().LU_Loaded do
+        for i, ev in next, getgenv().LU_Loaded["Cache"] do
             pcall(function() ev:Destroy() end)
             pcall(function() ev:Disconnect() end)
             pcall(function() ev:Remove() end)
