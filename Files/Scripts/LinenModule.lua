@@ -2,7 +2,7 @@
 -- Optimized for performance, can be re-executed as many times as you want
 
 -- V3rmillion Profile: https://v3rmillion.net/member.php?action=profile&uid=2467334
--- Version 0.5
+-- Version 0.6
 
 local Module = { LuaLoopCount = 0 }
 local CustomData = {}
@@ -198,7 +198,7 @@ end
 
 --~~~~~~~~~~~~ Caching Framework
 Module.Cache = {
-    add = function(name: string, value: any)
+    add = function(value: any, name: string)
         local GlobalCache = getgenv().LU_Loaded or Module:LoadCache()
         local cacheName = name or #GlobalCache["Cache"]+1
 
