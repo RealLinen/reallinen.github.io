@@ -7,6 +7,7 @@
 -- PLS Credit me If ur going to use OR Fork or Do anything rlly, this was kinda hard to make and took over 3 days
 
 -- Will be adding Color Changer and Textbox soon!
+-- Version: 0.1
 
 local __original_require = require
 local function require(link)
@@ -1465,6 +1466,8 @@ do -- UI Functions
 		DropdownExample.Parent = (Data.Tab:FindFirstChildOfClass("ScrollingFrame") and Data.Tab:FindFirstChildOfClass("ScrollingFrame"):FindFirstChildOfClass("ScrollingFrame") or Data.Tab:FindFirstChildOfClass("ScrollingFrame")) or Data.Tab
 		
 		local Dropdown = DropdownExample.ViewDropdown
+		Dropdown.Label.Text = Data.Text
+
 		local Frame = Dropdown.Frame
 		local ExampleButton = Frame.Button:Clone()
 		local Symbol = Dropdown.Symbol
@@ -1620,6 +1623,10 @@ do -- UI Functions
 
 					btn.TextColor3 = Color3.fromRGB(26, 177, 252)
 					Selected = btn
+
+					if not Data.KeepText then
+						pcall(function() Dropdown.Label.Text = value end) -- IDK, ITS 4 AM
+					end
 
 					local passed, message = pcall(Data.Callback, value, oldSelName)
 					if not passed then
