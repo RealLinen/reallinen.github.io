@@ -4,7 +4,9 @@
 
 -- 2000+ Lines, crazy isn't it?
 -- This automatically deletes connections on re-execution, basically reducing lag [ You shouldn't lag with this UI Library ]
--- PLS Credit me If ur going to use
+-- PLS Credit me If ur going to use OR Fork or Do anything rlly, this was kinda hard to make and took over 3 days
+
+-- Will be adding Color Changer and Textbox soon!
 
 local __original_require = require
 local function require(link)
