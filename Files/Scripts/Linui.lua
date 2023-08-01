@@ -7,7 +7,8 @@
 -- PLS Credit me If ur going to use OR Fork or Do anything rlly, this was kinda hard to make and took over 3 days
 
 -- Will be adding Color Changer and Textbox soon!
--- Version: 0.4
+-- Version: 0.5
+
 --[[
 	Fixed UI click-related bugs
 	Fixed breathing
@@ -2022,6 +2023,9 @@ end
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 setmetatable(Library, { -- Config Manager
 	__index = function(self, value)
+		if(value=="config") then
+			return Config
+		end
 		return rawget(Config, value)
 	end,
 	__newindex = function(self, base, value)
@@ -2031,7 +2035,7 @@ setmetatable(Library, { -- Config Manager
 				UI.Frame.Main.PlayerName.Text = value
 			end)
 		end
-		return rawset(Config, base, value)
+		return rawset(Library, base, value)
 	end
 })
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2130,6 +2134,7 @@ function Library:Config()
 end
 
 Library.Frame = Frame
+Library.Storage = Storage
 Library:Config() -- Loads settings
 
 -- .<(:D _^_ D:)>.
