@@ -36,6 +36,7 @@ for i,v in next, LinenModule do
     getgenv()[i] = v
 end
 
+LinenModule:Load()
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
