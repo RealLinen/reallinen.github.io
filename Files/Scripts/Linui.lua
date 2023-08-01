@@ -7,10 +7,11 @@
 -- PLS Credit me If ur going to use OR Fork or Do anything rlly, this was kinda hard to make and took over 3 days
 
 -- Will be adding Color Changer and Textbox soon!
--- Version: 0.3
+-- Version: 0.4
 --[[
 	Fixed UI click-related bugs
 	Fixed breathing
+	Fixed Toggles inverting wrong callback
 ]]
 
 local __original_require = require
@@ -1274,21 +1275,27 @@ do -- UI Functions
 		ToggleConfig["nil"] = ToggleConfig["false"]
 		--------------
 		local ToggleHandler = (function(nocall)
-			if ToggleConfig[tostring(State)] then
-				
-				local OldState = State
-				local NewState;
-				xpcall(function()
-					NewState = ToggleConfig[tostring(State)]()
-				end, function()
-					NewState = OldState
-				end)
-				
-				if NewState ~= OldState and not nocall then
-					local called, message = pcall(Data.Callback, NewState, OldState)
-					if not called then
-						warn("[ Linui Library: Toggle Bug ] "..Data.Name..": "..message)
-					end
+			local OldState = State
+			if State then -- True, toggling false
+			    local called, message = pcall(ToggleConfig["true"])
+				if not called then
+					State = not State
+					warn("[ Linui Library: Toggle 'State' Bug ] "..Data.Name..": "..message)
+				end
+
+
+		    else -- False, toggling true
+			    local called, message = pcall(ToggleConfig["false"])
+				if not called then
+					State = not State
+					warn("[ Linui Library: Toggle 'State' Bug ] "..Data.Name..": "..message)
+				end
+			end
+
+			if State ~= OldState and not nocall then
+				local called, message = pcall(Data.Callback, State, OldState)
+				if not called then
+					warn("[ Linui Library: Toggle Bug ] "..Data.Name..": "..message)
 				end
 			end
 		end)
@@ -2029,7 +2036,8 @@ setmetatable(Library, { -- Config Manager
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function Library:Config()
 	
-	Library:Toggle({ Text = "Breathing", Value = Storage.Data["LinenLib_Breathing"], Callback = function(value) Storage.Data["LinenLib_Breathing"] = value; Config.Breathing = value end })
+	Config.Breathing = Storage.Data["LinenLib_Breathing"]
+	Library:Toggle({ Text = "Breathing", Value = type(Storage.Data["LinenLib_Breathing"])=="nil" and true or Storage.Data["LinenLib_Breathing"], Callback = function(value) Storage.Data["LinenLib_Breathing"] = value; Config.Breathing = value end })
 	Library:Toggle({ Text = "Always On Top", Value = type(Storage.Data["LinenLib_AOT"])=="nil" and true or Storage.Data["LinenLib_AOT"], Callback = function(value) Storage.Data["LinenLib_AOT"] = value;UI["AlwaysOnTop"] = value end })
 	Library:Keybind({ Text = "Toggle", Value = Storage.Data["LinenLib_Toggle"] , Callback = function(keycode) Storage.Data["LinenLib_Toggle"] = keycode;Frame.Visible = not Frame.Visible end })
 	
