@@ -7,7 +7,7 @@
 -- PLS Credit me If ur going to use OR Fork or Do anything rlly, this was kinda hard to make and took over 3 days
 
 -- Will be adding Color Changer and Textbox soon!
--- Version: 0.1
+-- Version: 0.2
 
 local __original_require = require
 local function require(link)
@@ -21,7 +21,6 @@ local function require(link)
 
 end
 
-loadstring(require("https://pastebin.com/raw/97q3psdc")) -- Fixes newcclousure detections, etc
 pcall(loadstring(require("https://api.irisapp.ca/Scripts/IrisInstanceProtect.lua"))) -- Basically try to make it undetectable
 
 local LinenModule: { print: "function( ... )", Loop: "function( func, seconds, yeild, ... )" } = loadstring(require("https://reallinen.github.io/Files/Scripts/LinenModule.lua"))()
