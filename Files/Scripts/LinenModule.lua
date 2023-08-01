@@ -2,7 +2,8 @@
 -- Optimized for performance, can be re-executed as many times as you want
 
 -- V3rmillion Profile: https://v3rmillion.net/member.php?action=profile&uid=2467334
--- Version 0.6
+-- Version 0.7
+-- NOW YOU HAVE TO MANUALLY CALL Module:Load()
 
 local Module = { LuaLoopCount = 0 }
 local CustomData = {}
@@ -138,23 +139,29 @@ Module["Loop"] = function(func: "Function to run in the loop", seconds: "Each se
 
     local WrapFunction = function(func, ...)if type(func)=="function"then coroutine.wrap(func)(...);return(...)end;return false;end
     local breakLoop = false
+    local loopDone = true
     --|||||||||||||||
+    local function Callback(...)
+        if yeild then
+            if not loopDone then return; end
+        end
+
+        loopDone = false
+        local suc, err = pcall(func, ...)
+        if not suc then Module["L_print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
+        loopDone = true
+    end
+
     local function mainLoop(...)
         local tim = tick()
         while game:GetService("RunService").Heartbeat:Wait() and getgenv().LU_Loaded and not breakLoop do
             if seconds then
                 if tick()-tim >= seconds-.1 then
                     tim = tick()
-                    WrapFunction(function(...)
-                        local suc, err = pcall(func, ...)
-                        if not suc then Module["L_print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
-                    end, ...)
+                    Callback(...)
                 end
             else
-                WrapFunction(function(...)
-                    local suc, err = pcall(func, ...)
-                    if not suc then Module["L_print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
-                end, ...)
+                Callback(...)
             end
         end
     end
@@ -309,8 +316,6 @@ function Module:Load(force)
 
 end
 --
-
-Module:Load() -- Important / required
 return Module
 
 --[[ Usage Example:
