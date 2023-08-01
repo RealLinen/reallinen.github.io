@@ -1,5 +1,9 @@
 -- Documentation: https://reallinen.gitbook.io/3d-ui-linui-documentation/
 -- Creator: Linen#3485
+-- V3rmillion Thread: https://v3rmillion.net/showthread.php?tid=1213514
+
+-- 2000+ Lines, crazy isn't it?
+-- This automatically deletes connections on re-execution, basically reducing lag [ You shouldn't lag with this UI Library ]
 
 local __original_require = require
 local function require(link)
