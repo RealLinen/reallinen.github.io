@@ -159,10 +159,11 @@ Part.Size = Vector3.new(22.517, 11.59, 2)
 Part:SetAttribute(getgenv()["Linui"], "Roblox")
 
 if type(ProtectInstance)=="function" then -- If ur exploit doesn't support and you get detected, oh well, read documentation to see what ur exploit has to support to avoid most detections
-    ProtectInstance(Part) -- Thanks Iris
+    ProtectInstance(Part) -- Thanks Iris <3
 end
 
 Part.Parent = workspace
+	-- print(Part.Parent) -- nil [ The part is hooked to return nil ] [ ONLY IF UR EXPLOIT SUPPORTS ProtectInstance ]
 
 local Objects = Instance.new("Folder")
 local Examples = Instance.new("Folder")
