@@ -175,7 +175,7 @@ Cache.add(Part)
 
 local UI, Frame = nil, nil;
 local Config = { ["Keys"] = {}, ["Cooldowns"] = {}, ["UI"] = {}, Breathing = true }
-local Library = { ["Config"] = {} }
+local Library = { }
 
 local function HandleEvent(BindableEvent, callback)
 	return BindableEvent and type(callback)=="function" and (function() local event = BindableEvent:Connect(callback); Cache.add(event); return event end)() or (function() Cache.add(BindableEvent);return BindableEvent end)()
