@@ -7,12 +7,13 @@
 -- PLS Credit me If ur going to use OR Fork or Do anything rlly, this was kinda hard to make and took over 3 days
 
 -- Will be adding Color Changer and Textbox soon!
--- Version: 0.5
+-- Version: 0.6.5
 
 --[[
 	Fixed UI click-related bugs
 	Fixed breathing
 	Fixed Toggles inverting wrong callback
+	Made more hard to detect
 ]]
 
 local __original_require = require
@@ -140,15 +141,6 @@ Mouse["Mouse"] = pm_mouse
 local generatedName = "LU_"..HttpService:GenerateGUID()
 getgenv()["Linui"] = getgenv()["Linui"] or "_"..math.random(1, 9)..math.random(1, 9)..math.random(1, 9)..math.random(1, 9)..math.random(1, 9)..math.random(1, 9)..math.random(1, 9)..math.random(1, 9)..math.random(1, 9)
 
-for i,v in next, workspace:GetChildren() do
-    if v.Name:find("LU_") or string.match(v.Name, "LU_") then
-        local attribute = v:GetAttribute(getgenv()["Linui"])
-        if attribute then
-            v:Destroy() -- Destroy existing UI
-        end
-    end
-end
-
 local Part = Instance.new("Part")
 Part.Name = generatedName
 Part.Anchored = true
@@ -156,7 +148,6 @@ Part.CanCollide = false
 Part.Locked = true
 Part.Transparency = 1
 Part.Size = Vector3.new(22.517, 11.59, 2)
-Part:SetAttribute(getgenv()["Linui"], "Roblox")
 
 if type(ProtectInstance)=="function" then -- If ur exploit doesn't support and you get detected, oh well, read documentation to see what ur exploit has to support to avoid most detections
     ProtectInstance(Part) -- Thanks Iris <3
