@@ -7,7 +7,11 @@
 -- PLS Credit me If ur going to use OR Fork or Do anything rlly, this was kinda hard to make and took over 3 days
 
 -- Will be adding Color Changer and Textbox soon!
--- Version: 0.2
+-- Version: 0.3
+--[[
+	Fixed UI click-related bugs
+	Fixed breathing
+]]
 
 local __original_require = require
 local function require(link)
@@ -1994,16 +1998,15 @@ do -- Breathing
 	
 	local X, Y, Z = .1, .1, .1
 	local waitTime = 1
-	
 	local started = PartIncreased
 	
 	WrapFunction(function()
 		Loop(function()
 			if not Config.Breathing and started==PartIncreased then return; end
-			--TS:Create(Part, TweenInfo.new(waitTime), { Size = Part.Size + (PartIncreased and Vector3.new(-X, -Y, -Z) or Vector3.new(X, Y, Z)) }):Play()
+			TS:Create(Part, TweenInfo.new(waitTime), { Size = Part.Size + (PartIncreased and Vector3.new(-X, -Y, -Z) or Vector3.new(X, Y, Z)) }):Play()
 			task.wait(waitTime)
 			PartIncreased = not PartIncreased
-		end, 1.1)
+		end, 1.1, true)
 	end)
 
 end
