@@ -4,6 +4,7 @@
 
 -- 2000+ Lines, crazy isn't it?
 -- This automatically deletes connections on re-execution, basically reducing lag [ You shouldn't lag with this UI Library ]
+-- PLS Credit me If ur going to use
 
 local __original_require = require
 local function require(link)
@@ -2006,7 +2007,10 @@ setmetatable(Library, { -- Config Manager
 	end,
 	__newindex = function(self, base, value)
 		if base == "Text" and type(value)=="string" then
-			
+			return pcall(function()
+				UI.Frame.Main.PlayerName:SetAttribute("Text", value)
+				UI.Frame.Main.PlayerName.Text = value
+			end)
 		end
 		return rawset(Config, base, value)
 	end
