@@ -898,7 +898,7 @@ do -- UI Elements
 	ColorPicker["BackgroundTransparency"] = 1
 	ColorPicker["BorderColor3"] = Color3.fromRGB(0, 0, 0)
 	ColorPicker["Position"] = UDim2.new(0.21557384729385376, 0, 0.2920585572719574, 0)
-	ColorPicker["Parent"] = game.StarterGui.Main_UI.Frame.Right.Frame
+	ColorPicker["Parent"] = Examples
 	
 	local ViewColor = Instance.new("ImageButton")
 	ViewColor["BorderSizePixel"] = 0
@@ -1149,7 +1149,7 @@ do -- UI Elements
 	Dropdown["BackgroundTransparency"] = 1
 	Dropdown["BorderColor3"] = Color3.fromRGB(0, 0, 0)
 	Dropdown["Position"] = UDim2.new(0.21557384729385376, 0, 0.2920585572719574, 0)
-	Dropdown["Parent"] = game.StarterGui.Main_UI.Frame.Right.Frame
+	Dropdown["Parent"] = Examples
 	
 	local ViewDropdown = Instance.new("ImageButton")
 	ViewDropdown["BorderSizePixel"] = 0
