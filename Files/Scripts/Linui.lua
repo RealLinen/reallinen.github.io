@@ -15,7 +15,7 @@
 ]]
 
 -- 2000+ Lines, crazy isn't it?
--- Version: 0.9
+-- Version: 0.9.1
 
 STRING = "Fixes:"
 --[[
@@ -1141,6 +1141,7 @@ do -- UI Elements
 	
 	------------------------------------------------
 
+
 	local Dropdown = Instance.new("Frame")
 	Dropdown["BorderSizePixel"] = 0
 	Dropdown["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
@@ -1149,7 +1150,7 @@ do -- UI Elements
 	Dropdown["BackgroundTransparency"] = 1
 	Dropdown["BorderColor3"] = Color3.fromRGB(0, 0, 0)
 	Dropdown["Position"] = UDim2.new(0.21557384729385376, 0, 0.2920585572719574, 0)
-	Dropdown["Parent"] = Examples
+	Dropdown["Parent"] = game.StarterGui.Main_UI.Frame.Right.Frame
 	
 	local ViewDropdown = Instance.new("ImageButton")
 	ViewDropdown["BorderSizePixel"] = 0
@@ -1232,6 +1233,24 @@ do -- UI Elements
 	local UICorner_1 = Instance.new("UICorner")
 	UICorner_1["CornerRadius"] = UDim.new(0, 0)
 	UICorner_1["Parent"] = Frame
+	
+	local Button = Instance.new("TextButton")
+	Button["BorderSizePixel"] = 0
+	Button["Name"] = "Button"
+	Button["TextSize"] = 17
+	Button["TextYAlignment"] = Enum.TextYAlignment.Bottom
+	Button["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	Button["FontFace"] = Font.new("rbxassetid://12187373592", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	Button["Size"] = UDim2.new(0, 180, 0, 21)
+	Button["TextColor3"] = Color3.fromRGB(17.00000088661909, 117.00000062584877, 167.00000524520874)
+	Button["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	Button["BackgroundTransparency"] = 1
+	Button["Parent"] = Frame
+	
+	local UIListLayout = Instance.new("UIListLayout")
+	UIListLayout["Padding"] = UDim.new(0, 2)
+	UIListLayout["SortOrder"] = Enum.SortOrder.LayoutOrder
+	UIListLayout["Parent"] = Frame	
 	
 	
 end
