@@ -1,14 +1,21 @@
--- Documentation: https://reallinen.gitbook.io/3d-ui-linui-documentation/
--- Creator: Linen#3485
--- V3rmillion Thread: https://v3rmillion.net/showthread.php?tid=1213514
+--[[
+    GET/REQUEST UPDATES HERE: https://discord.gg/rc3TDqKmjN
+    Creator: Linen#3485
+
+    [ * Links:
+         Documentation: https://reallinen.gitbook.io/3d-ui-linui-documentation/
+         V3rmillion Thread: https://v3rmillion.net/showthread.php?tid=1213514
+    ]
+
+    This automatically deletes connections on re-execution, basically reducing lag [ You shouldn't lag with this UI Library ]
+    PLS Credit me If ur going to use OR Fork or Do anything rlly, this was kinda hard to make and took over 3 days
+
+    * The Y, Z, R AND G Parameters save on re-execute. To change or remove them, open exploit workspace fodler -> LinenModule -> (GAME_PLACE_ID).txt
+    * UI Config saves per game, not globally
+]]
 
 -- 2000+ Lines, crazy isn't it?
--- This automatically deletes connections on re-execution, basically reducing lag [ You shouldn't lag with this UI Library ]
--- PLS Credit me If ur going to use OR Fork or Do anything rlly, this was kinda hard to make and took over 3 days
-
--- The Y, Z, R AND G Parameters save on re-execute. To change or remove them, open exploit workspace fodler -> LinenModule -> (GAME_PLACE_ID).txt
--- UI Config Saves per game, not globally
--- Version: 0.8.5
+-- Version: 0.8.7
 
 STRING = "Fixes:"
 --[[
