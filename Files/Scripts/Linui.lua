@@ -15,7 +15,7 @@
 ]]
 
 -- 2000+ Lines, crazy isn't it?
--- Version: 0.9.5
+-- Version: 1
 
 STRING = "Fixes:"
 --[[
@@ -2085,7 +2085,7 @@ do -- UI Functions
 				frame.Size = UDim2.fromOffset(frame.Size.X.Offset, 0)
 				ColorExample.Size = frame.Size
 				frame.Visible = true
-				ColorExample:TweenSize(UDim2.new(0, 181, 0, 160), nil, nil, .5)
+				ColorExample:TweenSize(UDim2.new(0, 181, 0, 180), nil, nil, .5)
 				frame:TweenSize(UDim2.new(0, 181, 0, 144), nil, nil, .5)
 				task.wait(.6)
 			else
