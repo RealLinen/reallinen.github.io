@@ -2541,14 +2541,6 @@ function Library:Config()
 		end,
 	
 	})
-
-	Library:Color({ 
-		Text = "Color Picker",
-		Callback = function(color: Color3) -- color is a RGB color [ Color3.fromHSV ]
-			print("Color:", color.R, color.G, color.B)
-		end
-	})
-	
 	return Library
 end
 
