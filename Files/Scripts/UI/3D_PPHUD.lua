@@ -2,7 +2,7 @@
 -- GET UPDATES: https://discord.gg/rc3TDqKmjN
 -- VERSION 0.1
 
--- PPHUD UI Library, Modified by Linen#3485: 
+-- PPHUD UI Library, Modified by Linen#3485: https://v3rmillion.net/showthread.php?tid=1214090
 --[[ Usage Example By Linen#3485
 
     Window = Library:Window({ Text = "Name" })
