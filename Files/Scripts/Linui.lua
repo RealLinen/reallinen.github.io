@@ -8,7 +8,7 @@
 
 -- The Y, Z, R AND G Parameters save on re-execute. To change or remove them, open exploit workspace fodler -> LinenModule -> (GAME_PLACE_ID).txt
 -- UI Config Saves per game, not globally
--- Version: 0.7
+-- Version: 0.8
 
 STRING = "Fixes:"
 --[[
@@ -2123,6 +2123,11 @@ do -- UI Functions
 			if type(value)=="string" then
 				ViewColor.Label.Text = value
 			end
+		end
+
+		function colorlib:Get()
+			repeat task.wait(.06) until not buttonDown -- If they're picking a color, wait for them to be finished
+			return colourDisplay.BackgroundColor3
 		end
 
 		if Data.Color then
