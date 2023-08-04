@@ -1,7 +1,7 @@
 -- Original Thread/Credits: https://v3rmillion.net/showthread.php?tid=1188164
 
 -- GET UPDATES: https://discord.gg/rc3TDqKmjN
--- VERSION 0.3
+-- VERSION 0.3.1
 
 -- PPHUD UI Library, Modified by Linen#3485: https://v3rmillion.net/showthread.php?tid=1214090
 --[[ Usage Example By Linen#3485
@@ -279,7 +279,7 @@ function library:Window(WindowArgs)
         local mouseX = (mouse.X-mouse.ViewSizeX/2) * SCALE
         local mouseY = (mouse.Y-mouse.ViewSizeY/2) * SCALE
         
-        if Dragging and UIS:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
+        if Dragging and (UIS:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) and UIS:IsKeyDown(Enum.KeyCode.P)) then
             AdddedCFrame = CFrame.new(mouseX, -mouseY, 0)
         end
         
