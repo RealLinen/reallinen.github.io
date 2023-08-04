@@ -1,6 +1,7 @@
 -- Original Thread/Credits: https://v3rmillion.net/showthread.php?tid=1188164
+
 -- GET UPDATES: https://discord.gg/rc3TDqKmjN
--- VERSION 0.2
+-- VERSION 0.3
 
 -- PPHUD UI Library, Modified by Linen#3485: https://v3rmillion.net/showthread.php?tid=1214090
 --[[ Usage Example By Linen#3485
@@ -90,7 +91,7 @@ pcall(loadstring(require("https://api.irisapp.ca/Scripts/IrisInstanceProtect.lua
 
 local LinenModule: { print: "function( ... )", Loop: "function( func, seconds, yeild, ... )" } = loadstring(require("https://reallinen.github.io/Files/Scripts/LinenModule.lua"))()
 local Storage: { Data: {}, Load: "function( folder_name: string )" }, Http: { GET: "function( link: string )" }, Cache: { add: "function( name: string, object: anything/dynamic )", del: "function( name: string )" } = LinenModule["Storage"], LinenModule["Http"], LinenModule["Cache"]
-   
+
 for i,v in next, LinenModule do
     if i=="print" then continue; end
     getgenv()[i] = v
@@ -250,6 +251,8 @@ function library:Window(WindowArgs)
     self.Tabs = 0
     self.Hovering = false
 
+    local Dragging = false
+    local AdddedCFrame = CFrame.new(0, 0, 0)
     local SelectedTab = nil
     local generatedName = "LU_"..HttpService:GenerateGUID()
 
@@ -276,7 +279,12 @@ function library:Window(WindowArgs)
         local mouseX = (mouse.X-mouse.ViewSizeX/2) * SCALE
         local mouseY = (mouse.Y-mouse.ViewSizeY/2) * SCALE
         
-        TS:Create(Part, TweenInfo.new(deltaTime), { CFrame =  workspace.CurrentCamera.CFrame * CFrame.new(LookView.X, LookView.Y, LookView.Z) * CFrame.Angles(0, math.rad(mouseX), 0) * CFrame.Angles(math.rad(mouseY) , 0 , 0) }):Play()
+        if Dragging and UIS:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
+            AdddedCFrame = CFrame.new(mouseX, -mouseY, 0)
+        end
+        
+        TS:Create(Part, TweenInfo.new(deltaTime), { CFrame =  (workspace.CurrentCamera.CFrame * AdddedCFrame) * CFrame.new(LookView.X, LookView.Y, LookView.Z) * CFrame.Angles(0, math.rad(mouseX), 0) * CFrame.Angles(math.rad(mouseY) , 0 , 0) }):Play()
+       
         task.wait(deltaTime)
         local scalingFactor = (workspace.CurrentCamera.CFrame.Position - Part.CFrame.Position).Magnitude - LookView.Z	
         --Part.Size = Part.Size / Vector3.new(scalingFactor, 0, scalingFactor)
@@ -443,6 +451,14 @@ function library:Window(WindowArgs)
             )
         }
     )
+
+    HandleEvent(Window.Main.MouseEnter:Connect(function() 
+        Dragging = true
+    end))
+
+    HandleEvent(Window.Main.MouseLeave:Connect(function() 
+         Dragging = false
+    end))
 
     HandleEvent(
         UserInputService.InputBegan:Connect(
@@ -784,7 +800,7 @@ function library:Window(WindowArgs)
 
         local TabTable = {}
 
-        local Tab =
+        local Tab: Frame =
             Utilities:Create(
             "Frame",
             {
@@ -830,10 +846,7 @@ function library:Window(WindowArgs)
             }
         )
 
-        dragify(Tab)
-        dragify(Tab.Divider)
         ResizeTabs()
-
         local ContainerHolder =
             Utilities:Create(
             "Frame",
@@ -981,7 +994,7 @@ function library:Window(WindowArgs)
 
             local SectionTable = {}
 
-            local Section =
+            local Section: Frame =
                 Utilities:Create(
                 "Frame",
                 {
@@ -1037,7 +1050,6 @@ function library:Window(WindowArgs)
             )
 
             local SectionY = 36
-
             HandleEvent(
                 SizeX:GetPropertyChangedSignal("Value"):Connect(
                     function()
@@ -1334,7 +1346,7 @@ function library:Window(WindowArgs)
 
                 for i = 1, 10 do
                     if Step == 1 then
-                        break
+                        break;
                     end
 
                     StepFormat = "%." .. i .. "f"
@@ -2036,8 +2048,8 @@ end
 ----------------------------------------------------
 return library
 
---[[
-local Library = loadstring(game:HttpGet('https://reallinen.github.io/Files/Scripts/UI/3D_PPHUD.lua'))()
+
+--[[local Library = library--loadstring(game:HttpGet('https://reallinen.github.io/Files/Scripts/UI/3D_PPHUD.lua'))()
 local Flags = Library.Flags
 
 local Window = Library:Window({
@@ -2167,4 +2179,4 @@ Section3:Label({
 })
 
 Tab:Select()
-]]
+--]]
