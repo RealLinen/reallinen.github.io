@@ -8,7 +8,7 @@
 
 -- The Y, Z, R AND G Parameters save on re-execute. To change or remove them, open exploit workspace fodler -> LinenModule -> (GAME_PLACE_ID).txt
 -- UI Config Saves per game, not globally
--- Version: 0.8.1
+-- Version: 0.8.5
 
 STRING = "Fixes:"
 --[[
@@ -16,6 +16,7 @@ STRING = "Fixes:"
 	* Fixed/Added breathing
 	* Fixed Toggles inverting wrong callback
 	* Made more hard to detect
+	* Fixed Colorpicker overriding screen
 ]]
 
 STRING = "Updates:"
@@ -880,15 +881,16 @@ do -- UI Elements
 	Line["Position"] = UDim2.new(0.353349506855011, 0, 0.07307261973619461, 0)
 	Line["Parent"] = Section
 	
+	-------------------------------------------
 	local Dropdown = Instance.new("Frame")
 	Dropdown["BorderSizePixel"] = 0
 	Dropdown["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
 	Dropdown["Name"] = "Dropdown"
-	Dropdown["Size"] = UDim2.new(0, 186, 0, 33)
+	Dropdown["Size"] = UDim2.new(0, 186, 0, 173)
 	Dropdown["BackgroundTransparency"] = 1
 	Dropdown["BorderColor3"] = Color3.fromRGB(0, 0, 0)
 	Dropdown["Position"] = UDim2.new(0.21557384729385376, 0, 0.2920585572719574, 0)
-	Dropdown["Parent"] = UI_Examples
+	Dropdown["Parent"] = game.StarterGui.Main_UI.Frame.Right.Frame
 	
 	local ViewDropdown = Instance.new("ImageButton")
 	ViewDropdown["BorderSizePixel"] = 0
@@ -960,7 +962,7 @@ do -- UI Elements
 	Frame["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
 	Frame["Size"] = UDim2.new(0, 181, 0, 136)
 	Frame["BorderColor3"] = Color3.fromRGB(0, 0, 0)
-	Frame["Position"] = UDim2.new(0.003524527419358492, 0, 0.9709997773170471, 0)
+	Frame["Position"] = UDim2.new(-0.002761082025244832, 0, 0.9709997773170471, 0)
 	Frame["Parent"] = ViewDropdown
 	
 	local UIGradient_1 = Instance.new("UIGradient")
@@ -979,7 +981,7 @@ do -- UI Elements
 	Button["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
 	Button["FontFace"] = Font.new("rbxassetid://12187373592", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
 	Button["Size"] = UDim2.new(0, 180, 0, 21)
-	Button["TextColor3"] = Color3.fromRGB(17.00000088661909, 117.00000822544098, 167.00000524520874)
+	Button["TextColor3"] = Color3.fromRGB(17.00000088661909, 117.00000062584877, 167.00000524520874)
 	Button["BorderColor3"] = Color3.fromRGB(0, 0, 0)
 	Button["BackgroundTransparency"] = 1
 	Button["Parent"] = Frame
@@ -989,7 +991,27 @@ do -- UI Elements
 	UIListLayout["SortOrder"] = Enum.SortOrder.LayoutOrder
 	UIListLayout["Parent"] = Frame
 	
+	local Button_1 = Instance.new("TextButton")
+	Button_1["BorderSizePixel"] = 0
+	Button_1["Name"] = "Button"
+	Button_1["TextSize"] = 17
+	Button_1["TextYAlignment"] = Enum.TextYAlignment.Bottom
+	Button_1["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	Button_1["FontFace"] = Font.new("rbxassetid://12187373592", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	Button_1["Size"] = UDim2.new(0, 180, 0, 21)
+	Button_1["TextColor3"] = Color3.fromRGB(26.000000350177288, 177.0000046491623, 252.00000017881393)
+	Button_1["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	Button_1["BackgroundTransparency"] = 1
+	Button_1["Parent"] = Frame
+	
+	local UIStroke = Instance.new("UIStroke")
+	UIStroke["Color"] = Color3.fromRGB(255, 255, 255)
+	UIStroke["Thickness"] = 0.20000000298023224
+	UIStroke["Parent"] = Button_1
+	
+	
 
+	-------------------------------------------
 	local ColorPicker = Instance.new("Frame")
 	ColorPicker["BorderSizePixel"] = 0
 	ColorPicker["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
@@ -998,7 +1020,7 @@ do -- UI Elements
 	ColorPicker["BackgroundTransparency"] = 1
 	ColorPicker["BorderColor3"] = Color3.fromRGB(0, 0, 0)
 	ColorPicker["Position"] = UDim2.new(0.21557384729385376, 0, 0.2920585572719574, 0)
-	ColorPicker["Parent"] = Examples
+	ColorPicker["Parent"] = game.StarterGui.Main_UI.Frame.Right.Frame
 	
 	local ViewColor = Instance.new("ImageButton")
 	ViewColor["BorderSizePixel"] = 0
@@ -1050,7 +1072,7 @@ do -- UI Elements
 	Frame["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
 	Frame["Size"] = UDim2.new(0, 181, 0, 144)
 	Frame["BorderColor3"] = Color3.fromRGB(0, 0, 0)
-	Frame["Position"] = UDim2.new(0.003524527419358492, 0, 0.9709985256195068, 0)
+	Frame["Position"] = UDim2.new(-0.0027583844494074583, 0, 0.9709985256195068, 0)
 	Frame["Parent"] = ViewColor
 	
 	local UIGradient_1 = Instance.new("UIGradient")
@@ -1139,7 +1161,6 @@ do -- UI Elements
 	R["TextColor3"] = Color3.fromRGB(255, 255, 255)
 	R["BorderColor3"] = Color3.fromRGB(0, 0, 0)
 	R["Text"] = "255"
-	R["CursorPosition"] = -1
 	R["ClearTextOnFocus"] = false
 	R["Parent"] = Frame
 	
@@ -1169,7 +1190,6 @@ do -- UI Elements
 	G["TextColor3"] = Color3.fromRGB(255, 255, 255)
 	G["BorderColor3"] = Color3.fromRGB(0, 0, 0)
 	G["Text"] = "255"
-	G["CursorPosition"] = -1
 	G["ClearTextOnFocus"] = false
 	G["Parent"] = Frame
 	
@@ -1199,7 +1219,6 @@ do -- UI Elements
 	B["TextColor3"] = Color3.fromRGB(255, 255, 255)
 	B["BorderColor3"] = Color3.fromRGB(0, 0, 0)
 	B["Text"] = "255"
-	B["CursorPosition"] = -1
 	B["ClearTextOnFocus"] = false
 	B["Parent"] = Frame
 	
@@ -1225,12 +1244,21 @@ do -- UI Elements
 	ColorDisplay["Image"] = "rbxasset://textures/ui/GuiImagePlaceholder.png"
 	ColorDisplay["Size"] = UDim2.new(0, 24, 0, 17)
 	ColorDisplay["BorderColor3"] = Color3.fromRGB(0, 0, 0)
-	ColorDisplay["Position"] = UDim2.new(0.83135986328125, 0, 0.27369457483291626, 0)
-	ColorDisplay["Parent"] = ColorPicker
+	ColorDisplay["Position"] = UDim2.new(0.8313602209091187, 0, 0.15369506180286407, 0)
+	ColorDisplay["Parent"] = ViewColor
 	
 	local UICorner_3 = Instance.new("UICorner")
 	UICorner_3["CornerRadius"] = UDim.new(0, 4)
 	UICorner_3["Parent"] = ColorDisplay
+	
+	local Line = Instance.new("Frame")
+	Line["BorderSizePixel"] = 0
+	Line["BackgroundColor3"] = Color3.fromRGB(0, 0, 0)
+	Line["Name"] = "Line"
+	Line["Size"] = UDim2.new(0, 180, 0, 1)
+	Line["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	Line["Position"] = UDim2.new(0.005524862091988325, 0, 0.9709985256195068, 0)
+	Line["Parent"] = ViewColor
 	
 end
 
@@ -2065,7 +2093,7 @@ do -- UI Functions
 				ColorExample.Size = frame.Size
 				frame.Visible = true
 				ColorExample:TweenSize(UDim2.fromOffset(frame.Size.X.Offset, originalSize.Y.Offset), nil, nil, .5)
-				frame:TweenSize(UDim2.fromOffset(frame.Size.X.Offset, originalSize.Y.Offset), nil, nil, .5)
+				frame:TweenSize(UDim2.fromOffset(frame.Size.X.Offset, originalSize.Y.Offset + 10), nil, nil, .5)
 				task.wait(.6)
 			else
 				frame.Size = UDim2.fromOffset(frame.Size.X.Offset, originalSize.Y.Offset)
