@@ -1,6 +1,6 @@
 -- Original Thread/Credits: https://v3rmillion.net/showthread.php?tid=1188164
 -- GET UPDATES: https://discord.gg/rc3TDqKmjN
--- VERSION 0.1
+-- VERSION 0.2
 
 -- PPHUD UI Library, Modified by Linen#3485: https://v3rmillion.net/showthread.php?tid=1214090
 --[[ Usage Example By Linen#3485
@@ -718,7 +718,6 @@ function library:Window(WindowArgs)
         SizeY.Value = Y
 
         Utilities:Tween(Window.Main, .05, {Size = UDim2.new(0, X, 0, Y)})
-
         ResizeTabs()
     end
 
@@ -733,7 +732,7 @@ function library:Window(WindowArgs)
                     HandleEvent(
                     Mouse.Move:Connect(
                         function()
-                            Resize()
+                            --Resize()
                         end
                     )
                 )
@@ -1559,33 +1558,41 @@ function library:Window(WindowArgs)
                 Info.Properties = type(Info.Properties) == "table" and Info.Properties or {}
 
                 local TextboxTable = {}
-
-                local Label =
-                    Utilities:Create(
+                local LabelParent = Utilities:Create(
                     "Frame",
                     {
-                        Name = "Label",
+                        Name = "LabelParent",
                         Parent = SectionContainer,
-                        Size = UDim2.new(0, 286, 0, 21),
+                        Size = UDim2.new(0, 286, 0, 25),
                         BackgroundColor3 = Colors.Secondary,
-                        BackgroundTransparency = 0.5
+                        BackgroundTransparency = 1
                     },
                     {
-                        Utilities:Create(
-                            "TextBox",
+                            Utilities:Create(
+                            "Frame",
                             {
-                                Name = "LabelText",
-                                Text = Info.Text,
-                                TextColor3 = Info.Color,
-                                RichText = true,
-                                BackgroundTransparency = 1,
-                                Size = UDim2.new(0, 286, 0, 14),
-                                TextXAlignment = (Info.TextXAlignment or Enum.TextXAlignment.Center),
-                                TextYAlignment = (Info.TextYAlignment or Enum.TextYAlignment.Center),
-                                TextSize = 13,
-                                Font = Enum.Font.SourceSansBold
-                            }
-                        )
+                                Name = "Label",
+                                Size = UDim2.new(0, 286, 0, 20),
+                                BackgroundColor3 = Colors.Secondary,
+                                BackgroundTransparency = 0.5
+                            },
+                            {
+                                Utilities:Create(
+                                    "TextBox",
+                                    {
+                                        Name = "LabelText",
+                                        Text = Info.Text,
+                                        TextColor3 = Info.Color,
+                                        RichText = true,
+                                        BackgroundTransparency = 1,
+                                        Size = UDim2.new(1, 0, 1, 0),
+                                        TextXAlignment = (Info.TextXAlignment or Enum.TextXAlignment.Center),
+                                        TextYAlignment = (Info.TextYAlignment or Enum.TextYAlignment.Center),
+                                        TextSize = 13,
+                                        Font = Enum.Font.SourceSansBold
+                                    }
+                                )
+                            })
                     }
                 )
 
@@ -1593,13 +1600,13 @@ function library:Window(WindowArgs)
                     if type(i) == "string" then
                         pcall(
                             function()
-                                Label.LabelText[i] = v
+                                LabelParent.Label.LabelText[i] = v
                             end
                         )
                     end
                 end
 
-                local TxtBox: TextBox = Label.LabelText
+                local TxtBox: TextBox = LabelParent.Label.LabelText
                 HandleEvent(
                     TxtBox.FocusLost:Connect(function()
                         if TxtBox.Text:gsub(" ", "")~="" then
@@ -1618,7 +1625,7 @@ function library:Window(WindowArgs)
                 end
 
                 function TextboxTable:Get()
-                    return Label.LabelText.Text
+                    return LabelParent.Label.LabelText.Text
                 end
 
                 return TextboxTable
@@ -2028,3 +2035,136 @@ function library:Window(WindowArgs)
 end
 ----------------------------------------------------
 return library
+
+--[[
+local Library = loadstring(game:HttpGet('https://reallinen.github.io/Files/Scripts/UI/3D_PPHUD.lua'))()
+local Flags = Library.Flags
+
+local Window = Library:Window({
+   Text = "Baseplate"
+})
+
+local Tab = Window:Tab({
+   Text = "Aiming"
+})
+
+local Tab2 = Window:Tab({
+   Text = "Visual"
+})
+
+local Section = Tab:Section({
+   Text = "Aiming"
+})
+
+local Section2 = Tab:Section({
+   Text = "Anti-Aim"
+})
+
+local Section3 = Tab:Section({
+   Text = "Ragebot",
+   Side = "Right"
+})
+
+Section:Toggle({
+   Text = "Aimbot",
+   Flag = "Aimbot"
+})
+
+Section:Toggle({
+   Text = "Silent-Aim",
+   Callback = function(bool)
+       warn(bool)
+   end
+})
+
+Section:Textbox({
+    Text = "Textbox",
+    Callback = function(txt)
+        print("Textbox:", txt)
+    end
+})
+
+Section:Dropdown({
+   Text = "Body Part",
+   List = {"Head", "Torso", "Random"},
+   Callback = function(opt)
+       warn(opt)
+   end
+})
+
+Section:Slider({
+   Text = "Hit Chance",
+   Minimum = 0,
+   Default = 60,
+   Maximum = 100,
+   Postfix = "%",
+   Callback = function(n)
+       warn(n)
+   end
+})
+
+Section:Button({
+   Text = "Spawn",
+   Callback = function()
+       warn("Settings Reseted.")
+   end
+})
+
+Section2:Toggle({
+   Text = "Spin"
+})
+
+Section2:Slider({
+   Text = "Pitch Offset",
+   Minimum = 100,
+   Default = 150,
+   Maximum = 500,
+   Callback = function(n)
+       warn(n)
+   end
+})
+
+Section2:Slider({
+   Text = "Yaw Offset",
+   Minimum = 100,
+   Default = 150,
+   Maximum = 500,
+   Callback = function(n)
+       warn(n)
+   end
+})
+
+Section2:Button({
+   Text = "Resolve Positions"
+})
+
+Section3:Toggle({
+   Text = "Auto-Wall",
+   Callback = function(bool)
+       warn(bool)
+   end
+})
+
+Section3:Toggle({
+   Text = "Trigger Bot"
+})
+
+Section3:Toggle({
+   Text = "Insta-Kill"
+})
+
+Section3:Dropdown({
+   Text = "Hitscan Directions",
+   List = {"Left", "Right", "Up", "Down", "All"},
+   Callback = function(opt)
+       warn(opt)
+   end
+})
+
+Section3:Label({
+   Text = "Status: Undetected",
+   Color = Color3.fromRGB(100, 190, 31)
+})
+
+Tab:Select()
+]]
