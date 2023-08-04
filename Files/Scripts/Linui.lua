@@ -6,14 +6,21 @@
 -- This automatically deletes connections on re-execution, basically reducing lag [ You shouldn't lag with this UI Library ]
 -- PLS Credit me If ur going to use OR Fork or Do anything rlly, this was kinda hard to make and took over 3 days
 
--- Will be adding Color Changer and Textbox soon!
--- Version: 0.6.5
+-- The Y, Z, R AND G Parameters save on re-execute. To change or remove them, open exploit workspace fodler -> LinenModule -> (GAME_PLACE_ID).txt
+-- UI Config Saves per game, not globally
+-- Version: 0.7
 
+STRING = "Fixes:"
 --[[
-	Fixed UI click-related bugs
-	Fixed breathing
-	Fixed Toggles inverting wrong callback
-	Made more hard to detect
+	* Fixed UI click-related bugs
+	* Fixed/Added breathing
+	* Fixed Toggles inverting wrong callback
+	* Made more hard to detect
+]]
+
+STRING = "Updates:"
+--[[
+	* Added Colorpicker
 ]]
 
 local __original_require = require
@@ -982,6 +989,248 @@ do -- UI Elements
 	UIListLayout["SortOrder"] = Enum.SortOrder.LayoutOrder
 	UIListLayout["Parent"] = Frame
 	
+
+	local ColorPicker = Instance.new("Frame")
+	ColorPicker["BorderSizePixel"] = 0
+	ColorPicker["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	ColorPicker["Name"] = "ColorPicker"
+	ColorPicker["Size"] = UDim2.new(0, 186, 0, 33)
+	ColorPicker["BackgroundTransparency"] = 1
+	ColorPicker["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	ColorPicker["Position"] = UDim2.new(0.21557384729385376, 0, 0.2920585572719574, 0)
+	ColorPicker["Parent"] = Examples
+	
+	local ViewColor = Instance.new("ImageButton")
+	ViewColor["BorderSizePixel"] = 0
+	ViewColor["Name"] = "ViewColor"
+	ViewColor["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	ViewColor["Image"] = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+	ViewColor["Size"] = UDim2.new(0, 181, 0, 102)
+	ViewColor["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	ViewColor["ImageTransparency"] = 1
+	ViewColor["Position"] = UDim2.new(0, 2, 0, 6)
+	ViewColor["BackgroundTransparency"] = 0.10000000149011612
+	ViewColor["Parent"] = ColorPicker
+	
+	local Label = Instance.new("TextLabel")
+	Label["TextWrapped"] = true
+	Label["BorderSizePixel"] = 0
+	Label["Name"] = "Label"
+	Label["TextScaled"] = true
+	Label["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	Label["FontFace"] = Font.new("rbxassetid://12187360881", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	Label["Size"] = UDim2.new(0.7607182264328003, 0, 0.5775953531265259, 0)
+	Label["Position"] = UDim2.new(0.04080655425786972, 0, 0.19316284358501434, 0)
+	Label["TextColor3"] = Color3.fromRGB(255, 255, 255)
+	Label["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	Label["Text"] = "Color Picker"
+	Label["BackgroundTransparency"] = 1
+	Label["TextXAlignment"] = Enum.TextXAlignment.Left
+	Label["TextSize"] = 17
+	Label["Parent"] = ViewColor
+	
+	local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
+	UITextSizeConstraint["MaxTextSize"] = 17
+	UITextSizeConstraint["Parent"] = Label
+	
+	local UIGradient = Instance.new("UIGradient")
+	UIGradient["Color"] = ColorSequence.new({  ColorSequenceKeypoint.new(0, Color3.fromRGB(20.000000707805157, 20.000000707805157, 20.000000707805157)) , ColorSequenceKeypoint.new(1, Color3.fromRGB(10.000000353902578, 10.000000353902578, 10.000000353902578)) })
+	UIGradient["Parent"] = ViewColor
+	
+	local UICorner = Instance.new("UICorner")
+	UICorner["CornerRadius"] = UDim.new(0, 2)
+	UICorner["Parent"] = ViewColor
+	
+	local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+	UIAspectRatioConstraint["AspectRatio"] = 7.239999771118164
+	UIAspectRatioConstraint["Parent"] = ViewColor
+	
+	local Frame = Instance.new("Frame")
+	Frame["BorderSizePixel"] = 0
+	Frame["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	Frame["Size"] = UDim2.new(0, 181, 0, 144)
+	Frame["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	Frame["Position"] = UDim2.new(0.003524527419358492, 0, 0.9709985256195068, 0)
+	Frame["Parent"] = ViewColor
+	
+	local UIGradient_1 = Instance.new("UIGradient")
+	UIGradient_1["Color"] = ColorSequence.new({  ColorSequenceKeypoint.new(0, Color3.fromRGB(20.000000707805157, 20.000000707805157, 20.000000707805157)) , ColorSequenceKeypoint.new(1, Color3.fromRGB(10.000000353902578, 10.000000353902578, 10.000000353902578)) })
+	UIGradient_1["Parent"] = Frame
+	
+	local UICorner_1 = Instance.new("UICorner")
+	UICorner_1["CornerRadius"] = UDim.new(0, 0)
+	UICorner_1["Parent"] = Frame
+	
+	local ColourWheel = Instance.new("ImageButton")
+	ColourWheel["Active"] = false
+	ColourWheel["BorderSizePixel"] = 0
+	ColourWheel["Name"] = "ColourWheel"
+	ColourWheel["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	ColourWheel["Selectable"] = false
+	ColourWheel["AnchorPoint"] = Vector2.new(0.5, 0.5)
+	ColourWheel["Image"] = "http://www.roblox.com/asset/?id=6020299385"
+	ColourWheel["Size"] = UDim2.new(0.4989059567451477, 0, 0.576551616191864, 0)
+	ColourWheel["ImageTransparency"] = 0.20000000298023224
+	ColourWheel["Position"] = UDim2.new(0.3513452708721161, 0, 0.38342663645744324, 0)
+	ColourWheel["BackgroundTransparency"] = 1
+	ColourWheel["Parent"] = Frame
+	
+	local UIAspectRatioConstraint_1 = Instance.new("UIAspectRatioConstraint")
+	UIAspectRatioConstraint_1["AspectRatio"] = 0.9999999403953552
+	UIAspectRatioConstraint_1["Parent"] = ColourWheel
+	
+	local Picker = Instance.new("ImageLabel")
+	Picker["BorderSizePixel"] = 0
+	Picker["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	Picker["Name"] = "Picker"
+	Picker["AnchorPoint"] = Vector2.new(0.5, 0.5)
+	Picker["Image"] = "http://www.roblox.com/asset/?id=3678860011"
+	Picker["Size"] = UDim2.new(0.09002578258514404, 0, 0.09002579748630524, 0)
+	Picker["BackgroundTransparency"] = 1
+	Picker["Position"] = UDim2.new(0.5000001192092896, 0, 0.4915757179260254, 0)
+	Picker["Parent"] = ColourWheel
+	
+	local DarknessPicker = Instance.new("ImageButton")
+	DarknessPicker["BorderSizePixel"] = 0
+	DarknessPicker["Name"] = "DarknessPicker"
+	DarknessPicker["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	DarknessPicker["Image"] = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+	DarknessPicker["Size"] = UDim2.new(0.09908635914325714, 0, 0.5836986303329468, 0)
+	DarknessPicker["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	DarknessPicker["ImageTransparency"] = 1
+	DarknessPicker["Position"] = UDim2.new(0.7619521021842957, 0, 0.1122029647231102, 0)
+	DarknessPicker["Parent"] = Frame
+	
+	local Slider = Instance.new("ImageLabel")
+	Slider["ZIndex"] = 2
+	Slider["BorderSizePixel"] = 0
+	Slider["SliceCenter"] = Rect.new(100, 100, 100, 100)
+	Slider["ScaleType"] = Enum.ScaleType.Slice
+	Slider["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	Slider["Name"] = "Slider"
+	Slider["ImageTransparency"] = 0.20000000298023224
+	Slider["AnchorPoint"] = Vector2.new(0.5, 0.5)
+	Slider["Image"] = "rbxassetid://3570695787"
+	Slider["Size"] = UDim2.new(1.000001072883606, 0, 0.02650105394423008, 0)
+	Slider["ImageColor3"] = Color3.fromRGB(86.00000247359276, 86.00000247359276, 86.00000247359276)
+	Slider["BackgroundTransparency"] = 1
+	Slider["Position"] = UDim2.new(0.5000037550926208, 0, 0.07336077094078064, 0)
+	Slider["SliceScale"] = 0.11999999731779099
+	Slider["Parent"] = DarknessPicker
+	
+	local UIGradient_2 = Instance.new("UIGradient")
+	UIGradient_2["Color"] = ColorSequence.new({  ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)) , ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0)) })
+	UIGradient_2["Rotation"] = 90
+	UIGradient_2["Parent"] = DarknessPicker
+	
+	local UICorner_2 = Instance.new("UICorner")
+	UICorner_2["CornerRadius"] = UDim.new(0, 4)
+	UICorner_2["Parent"] = DarknessPicker
+	
+	local R = Instance.new("TextBox")
+	R["BorderSizePixel"] = 0
+	R["TextEditable"] = false
+	R["Name"] = "R"
+	R["BackgroundColor3"] = Color3.fromRGB(20.000000707805157, 20.000000707805157, 20.000000707805157)
+	R["FontFace"] = Font.new("rbxassetid://12187368843", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	R["Size"] = UDim2.new(0, 32, 0, 17)
+	R["Position"] = UDim2.new(0.14917127788066864, 0, 0.8080062866210938, 0)
+	R["TextSize"] = 13
+	R["TextColor3"] = Color3.fromRGB(255, 255, 255)
+	R["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	R["Text"] = "255"
+	R["CursorPosition"] = -1
+	R["ClearTextOnFocus"] = false
+	R["Parent"] = Frame
+	
+	local TextLabel = Instance.new("TextLabel")
+	TextLabel["BorderSizePixel"] = 0
+	TextLabel["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	TextLabel["FontFace"] = Font.new("rbxasset://fonts/families/Balthazar.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	TextLabel["Size"] = UDim2.new(0, 19, 0, 17)
+	TextLabel["Position"] = UDim2.new(-0.7738265991210938, 0, 0, 0)
+	TextLabel["TextColor3"] = Color3.fromRGB(255, 255, 255)
+	TextLabel["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	TextLabel["Text"] = "R"
+	TextLabel["Font"] = Enum.Font.Fantasy
+	TextLabel["BackgroundTransparency"] = 1
+	TextLabel["TextSize"] = 16
+	TextLabel["Parent"] = R
+	
+	local G = Instance.new("TextBox")
+	G["BorderSizePixel"] = 0
+	G["TextEditable"] = false
+	G["Name"] = "G"
+	G["BackgroundColor3"] = Color3.fromRGB(20.000000707805157, 20.000000707805157, 20.000000707805157)
+	G["FontFace"] = Font.new("rbxassetid://12187368843", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	G["Size"] = UDim2.new(0, 32, 0, 17)
+	G["Position"] = UDim2.new(0.49000000953674316, 0, 0.8080000281333923, 0)
+	G["TextSize"] = 13
+	G["TextColor3"] = Color3.fromRGB(255, 255, 255)
+	G["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	G["Text"] = "255"
+	G["CursorPosition"] = -1
+	G["ClearTextOnFocus"] = false
+	G["Parent"] = Frame
+	
+	local TextLabel_1 = Instance.new("TextLabel")
+	TextLabel_1["BorderSizePixel"] = 0
+	TextLabel_1["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	TextLabel_1["FontFace"] = Font.new("rbxasset://fonts/families/Balthazar.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	TextLabel_1["Size"] = UDim2.new(0, 19, 0, 17)
+	TextLabel_1["Position"] = UDim2.new(-0.7738265991210938, 0, 0, 0)
+	TextLabel_1["TextColor3"] = Color3.fromRGB(255, 255, 255)
+	TextLabel_1["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	TextLabel_1["Text"] = "G"
+	TextLabel_1["Font"] = Enum.Font.Fantasy
+	TextLabel_1["BackgroundTransparency"] = 1
+	TextLabel_1["TextSize"] = 16
+	TextLabel_1["Parent"] = G
+	
+	local B = Instance.new("TextBox")
+	B["BorderSizePixel"] = 0
+	B["TextEditable"] = false
+	B["Name"] = "B"
+	B["BackgroundColor3"] = Color3.fromRGB(20.000000707805157, 20.000000707805157, 20.000000707805157)
+	B["FontFace"] = Font.new("rbxassetid://12187368843", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	B["Size"] = UDim2.new(0, 32, 0, 17)
+	B["Position"] = UDim2.new(0.7979999780654907, 0, 0.8080000281333923, 0)
+	B["TextSize"] = 13
+	B["TextColor3"] = Color3.fromRGB(255, 255, 255)
+	B["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	B["Text"] = "255"
+	B["CursorPosition"] = -1
+	B["ClearTextOnFocus"] = false
+	B["Parent"] = Frame
+	
+	local TextLabel_2 = Instance.new("TextLabel")
+	TextLabel_2["BorderSizePixel"] = 0
+	TextLabel_2["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	TextLabel_2["FontFace"] = Font.new("rbxasset://fonts/families/Balthazar.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	TextLabel_2["Size"] = UDim2.new(0, 19, 0, 17)
+	TextLabel_2["Position"] = UDim2.new(-0.7738265991210938, 0, 0, 0)
+	TextLabel_2["TextColor3"] = Color3.fromRGB(255, 255, 255)
+	TextLabel_2["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	TextLabel_2["Text"] = "B"
+	TextLabel_2["Font"] = Enum.Font.Fantasy
+	TextLabel_2["BackgroundTransparency"] = 1
+	TextLabel_2["TextSize"] = 16
+	TextLabel_2["Parent"] = B
+	
+	local ColorDisplay = Instance.new("ImageLabel")
+	ColorDisplay["BorderSizePixel"] = 0
+	ColorDisplay["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	ColorDisplay["Name"] = "ColorDisplay"
+	ColorDisplay["ImageTransparency"] = 1
+	ColorDisplay["Image"] = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+	ColorDisplay["Size"] = UDim2.new(0, 24, 0, 17)
+	ColorDisplay["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	ColorDisplay["Position"] = UDim2.new(0.83135986328125, 0, 0.27369457483291626, 0)
+	ColorDisplay["Parent"] = ColorPicker
+	
+	local UICorner_3 = Instance.new("UICorner")
+	UICorner_3["CornerRadius"] = UDim.new(0, 4)
+	UICorner_3["Parent"] = ColorDisplay
 	
 end
 
@@ -1455,7 +1704,7 @@ do -- UI Functions
 		return KeybindLib
 	end
 	
-	function Library:Dropdown( Data: { Text: string, Data: {} } ) 
+	function Library:Dropdown( Data: { Text: string, Tab: Frame, Data: {} } ) 
 
 		Data = type(Data)=="table" and Data or {}
 		Data.Text = Data.Text or Data.Name or "Test Dropdown"
@@ -1717,6 +1966,173 @@ do -- UI Functions
 		return dropdownLib
 	end
 
+	function Library:Color( Data: { Text: string, Tab: Frame, Data: {} } ) 
+
+		Data = type(Data)=="table" and Data or {}
+		Data.Text = Data.Text or Data.Name or "Test Color"
+		Data.Data = type(Data.Data)=="table" and Data.Data or {}
+		Data.Tab = Data.Tab and (function() for i,v in next, Frame:GetDescendants() do if v.ClassName:find("Frame") and v.Name==Data.Tab then return v end end end)() or Frame:FindFirstChild("Right")
+		Data.Callback = Data.Callback or function() end
+
+		local ColorExample = Examples:FindFirstChild("ColorPicker")
+		if not ColorExample then return; end
+
+		ColorExample = ColorExample:Clone()
+		ColorExample.Parent = (Data.Tab:FindFirstChildOfClass("ScrollingFrame") and Data.Tab:FindFirstChildOfClass("ScrollingFrame"):FindFirstChildOfClass("ScrollingFrame") or Data.Tab:FindFirstChildOfClass("ScrollingFrame")) or Data.Tab
+		
+		local ViewColor = ColorExample:FindFirstChild("ViewColor")
+		ViewColor.Label.Text = Data.Text
+
+		local frame = ViewColor:FindFirstChild("Frame")
+		local colorpicker = frame.Parent.Parent
+		
+		local colourWheel: ImageButton = frame:WaitForChild("ColourWheel")
+		local wheelPicker: ImageButton = colourWheel:WaitForChild("Picker")
+		
+		local darknessPicker = frame:WaitForChild("DarknessPicker")
+		local darknessSlider: ImageButton = darknessPicker:WaitForChild("Slider")
+		
+		local colourDisplay = colorpicker:WaitForChild("ColorDisplay")
+		local UIS = game:GetService("UserInputService")
+		local TS = game:GetService("TweenService")
+		
+		local R, G, B = frame:FindFirstChild("R"), frame:FindFirstChild("G"), frame:FindFirstChild("B")
+		local buttonDown = false
+		local movingSlider = false
+		local colorlib = {}
+
+		local function updateMouse(mousePos)
+	
+			local centreOfWheel = Vector2.new(colourWheel.AbsolutePosition.X + (colourWheel.AbsoluteSize.X/2), colourWheel.AbsolutePosition.Y + (colourWheel.AbsoluteSize.Y/2))
+			local distanceFromWheel = (mousePos - centreOfWheel).Magnitude
+		
+		
+			if distanceFromWheel <= colourWheel.AbsoluteSize.X/2 then
+				wheelPicker:TweenPosition(UDim2.new(0, mousePos.X - colourWheel.AbsolutePosition.X, 0, mousePos.Y - colourWheel.AbsolutePosition.Y), nil, nil, .05)
+			end
+			
+			if movingSlider then
+				darknessSlider:TweenPosition(UDim2.new(darknessSlider.Position.X.Scale, 0, 0, 
+					math.clamp(
+						mousePos.Y - darknessPicker.AbsolutePosition.Y, 
+						0, 
+						darknessPicker.AbsoluteSize.Y)
+					)	, nil, nil, .05)
+			end
+			
+			return centreOfWheel
+		end
+		
+		local function updateColour(centreOfWheel)
+		
+			local colourPickerCentre = Vector2.new(
+				colourWheel.Picker.AbsolutePosition.X + (colourWheel.Picker.AbsoluteSize.X/2),
+				colourWheel.Picker.AbsolutePosition.Y + (colourWheel.Picker.AbsoluteSize.Y/2)
+			)
+			
+			local h = (math.pi - math.atan2(colourPickerCentre.Y - centreOfWheel.Y, colourPickerCentre.X - centreOfWheel.X)) / (math.pi * 2)
+			local s = (centreOfWheel - colourPickerCentre).Magnitude / (colourWheel.AbsoluteSize.X/2)
+			local v = math.abs((darknessSlider.AbsolutePosition.Y - darknessPicker.AbsolutePosition.Y) / darknessPicker.AbsoluteSize.Y - 1)
+			local hsv = Color3.fromHSV(math.clamp(h, 0, 1), math.clamp(s, 0, 1), math.clamp(v, 0, 1))
+			
+			TS:Create(colourDisplay, TweenInfo.new( movingSlider and .05 or .1 ), { 
+				BackgroundColor3 = hsv
+			}):Play()
+			
+			darknessPicker.UIGradient.Color = ColorSequence.new{
+				ColorSequenceKeypoint.new(0, hsv), 
+				ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))
+			}
+			
+			TS:Create(darknessSlider, TweenInfo.new( movingSlider and .05 or .1 ), { 
+				ImageColor3 = hsv
+			}):Play()
+			
+			colorlib:Set(hsv)
+			
+		end	
+		
+		local ShowCooldown = false
+		local originalSize = frame.Size
+
+		HandleEvent(ViewColor.MouseButton1Click:Connect(function()
+			if ShowCooldown then return; end
+			ShowCooldown = true
+
+			if not frame.Visible then
+				frame.Size = UDim2.fromOffset(frame.Size.X.Offset, 0)
+				frame.Visible = true
+				frame:TweenSize(UDim2.fromOffset(frame.Size.X.Offset, originalSize.Y.Offset), nil, nil, .5)
+				task.wait(.6)
+			else
+				frame.Size = UDim2.fromOffset(frame.Size.X.Offset, originalSize.Y.Offset)
+				frame.Visible = true
+				frame:TweenSize(UDim2.fromOffset(frame.Size.X.Offset, 0), nil, nil, .5)
+				task.wait(.6)
+				frame.Visible = false
+			end
+
+			ShowCooldown = false
+		end))
+
+		HandleEvent(colourWheel.MouseMoved:Connect(function(x, y)
+			local mouse_position = Vector2.new(x, y)
+			if UIS:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
+				buttonDown = true
+				updateColour(updateMouse(mouse_position))
+			else
+				buttonDown = false
+			end
+		end))
+
+		HandleEvent(darknessPicker.MouseMoved:Connect(function(x, y)
+			local mouse_position = Vector2.new(x, y)
+			if UIS:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
+				movingSlider = true
+				updateColour(updateMouse(mouse_position))
+			else
+				movingSlider = false
+			end
+		end))
+
+		----------------------------------------
+		function colorlib:Set( color: Color3, nocall: boolean )
+			if typeof(color)=="Color3" then
+
+				TS:Create(colourDisplay, TweenInfo.new( movingSlider and .05 or .1 ), { 
+					BackgroundColor3 = color
+				}):Play()
+
+				local _R, _G, _B = color.R * 255, color.G * 255, color.B * 255 -- I love complicating my code [ Im joking I did this for fun ]
+				_R, _G, _B = tostring(_R):split(".")[1], tostring(_G):split(".")[1], tostring(_B):split(".")[1]
+	
+				if typeof(R)=="Instance" and R.ClassName:match("Text") then R.Text = _R end
+				if typeof(G)=="Instance" and G.ClassName:match("Text") then G.Text = _G end
+				if typeof(B)=="Instance" and B.ClassName:match("Text") then B.Text = _B end
+
+				if not nocall then
+					local called, message = pcall(Data.Callback, color)
+					if not called then
+						warn("[ Linui Library: ColorPicker Bug ] "..Data.Name..": "..message)
+					end
+				end
+			end
+		end
+
+		function colorlib:Text( value: string )
+			if type(value)=="string" then
+				ViewColor.Label.Text = value
+			end
+		end
+
+		if Data.Color then
+			colorlib:Set(Data.Color, Data.nocall)
+		end
+
+		frame.Visible = Data.Hide
+		return colorlib
+	end
+
 	function Library:Section(name) 
 		
 		name = type(name)=="string" and name or "ExmapleSection"
@@ -1825,7 +2241,11 @@ do -- UI Functions
 			Data.Tab = name
 			return Library:Dropdown(Data)
 		end
-
+		function sectionLib:Color(Data)
+			Data = type(Data)=="table" and Data or {}
+			Data.Tab = name
+			return Library:Color(Data)
+		end
 		function sectionLib:Hide()
 			Section.Parent = nil
 		end
@@ -2122,6 +2542,13 @@ function Library:Config()
 	
 	})
 
+	Library:Color({ 
+		Text = "Color Picker",
+		Callback = function(color: Color3) -- color is a RGB color [ Color3.fromHSV ]
+			print("Color:", color.R, color.G, color.B)
+		end
+	})
+	
 	return Library
 end
 
