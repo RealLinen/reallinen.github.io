@@ -8,7 +8,7 @@
 
 -- The Y, Z, R AND G Parameters save on re-execute. To change or remove them, open exploit workspace fodler -> LinenModule -> (GAME_PLACE_ID).txt
 -- UI Config Saves per game, not globally
--- Version: 0.8
+-- Version: 0.8.1
 
 STRING = "Fixes:"
 --[[
@@ -2054,6 +2054,7 @@ do -- UI Functions
 		
 		local ShowCooldown = false
 		local originalSize = frame.Size
+		local _originalSize = ColorExample.Size
 
 		HandleEvent(ViewColor.MouseButton1Click:Connect(function()
 			if ShowCooldown then return; end
@@ -2061,12 +2062,16 @@ do -- UI Functions
 
 			if not frame.Visible then
 				frame.Size = UDim2.fromOffset(frame.Size.X.Offset, 0)
+				ColorExample.Size = frame.Size
 				frame.Visible = true
+				ColorExample:TweenSize(UDim2.fromOffset(frame.Size.X.Offset, originalSize.Y.Offset), nil, nil, .5)
 				frame:TweenSize(UDim2.fromOffset(frame.Size.X.Offset, originalSize.Y.Offset), nil, nil, .5)
 				task.wait(.6)
 			else
 				frame.Size = UDim2.fromOffset(frame.Size.X.Offset, originalSize.Y.Offset)
+				ColorExample.Size = frame.Size
 				frame.Visible = true
+				ColorExample:TweenSize(_originalSize, nil, nil, .5)
 				frame:TweenSize(UDim2.fromOffset(frame.Size.X.Offset, 0), nil, nil, .5)
 				task.wait(.6)
 				frame.Visible = false
