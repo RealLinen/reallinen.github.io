@@ -15,7 +15,7 @@
 ]]
 
 -- 2000+ Lines, crazy isn't it?
--- Version: 0.8.7
+-- Version: 0.9
 
 STRING = "Fixes:"
 --[[
@@ -889,136 +889,7 @@ do -- UI Elements
 	Line["Parent"] = Section
 	
 	-------------------------------------------
-	local Dropdown = Instance.new("Frame")
-	Dropdown["BorderSizePixel"] = 0
-	Dropdown["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-	Dropdown["Name"] = "Dropdown"
-	Dropdown["Size"] = UDim2.new(0, 186, 0, 173)
-	Dropdown["BackgroundTransparency"] = 1
-	Dropdown["BorderColor3"] = Color3.fromRGB(0, 0, 0)
-	Dropdown["Position"] = UDim2.new(0.21557384729385376, 0, 0.2920585572719574, 0)
-	Dropdown["Parent"] = Examples
-	
-	local ViewDropdown = Instance.new("ImageButton")
-	ViewDropdown["BorderSizePixel"] = 0
-	ViewDropdown["Name"] = "ViewDropdown"
-	ViewDropdown["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-	ViewDropdown["Image"] = "rbxasset://textures/ui/GuiImagePlaceholder.png"
-	ViewDropdown["Size"] = UDim2.new(0, 181, 0, 102)
-	ViewDropdown["BorderColor3"] = Color3.fromRGB(0, 0, 0)
-	ViewDropdown["ImageTransparency"] = 1
-	ViewDropdown["Position"] = UDim2.new(0, 2, 0, 6)
-	ViewDropdown["BackgroundTransparency"] = 0.10000000149011612
-	ViewDropdown["Parent"] = Dropdown
-	
-	local Label = Instance.new("TextLabel")
-	Label["TextWrapped"] = true
-	Label["BorderSizePixel"] = 0
-	Label["Name"] = "Label"
-	Label["TextScaled"] = true
-	Label["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-	Label["FontFace"] = Font.new("rbxassetid://12187360881", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-	Label["Size"] = UDim2.new(0.7767943739891052, 0, 0.5775953531265259, 0)
-	Label["Position"] = UDim2.new(0.04080655425786972, 0, 0.19316284358501434, 0)
-	Label["TextColor3"] = Color3.fromRGB(255, 255, 255)
-	Label["BorderColor3"] = Color3.fromRGB(0, 0, 0)
-	Label["Text"] = "Dropdown"
-	Label["BackgroundTransparency"] = 1
-	Label["TextXAlignment"] = Enum.TextXAlignment.Left
-	Label["TextSize"] = 17
-	Label["Parent"] = ViewDropdown
-	
-	local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
-	UITextSizeConstraint["MaxTextSize"] = 17
-	UITextSizeConstraint["Parent"] = Label
-	
-	local UIGradient = Instance.new("UIGradient")
-	UIGradient["Color"] = ColorSequence.new({  ColorSequenceKeypoint.new(0, Color3.fromRGB(20.000000707805157, 20.000000707805157, 20.000000707805157)) , ColorSequenceKeypoint.new(1, Color3.fromRGB(10.000000353902578, 10.000000353902578, 10.000000353902578)) })
-	UIGradient["Parent"] = ViewDropdown
-	
-	local UICorner = Instance.new("UICorner")
-	UICorner["CornerRadius"] = UDim.new(0, 2)
-	UICorner["Parent"] = ViewDropdown
-	
-	local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
-	UIAspectRatioConstraint["AspectRatio"] = 7.239999771118164
-	UIAspectRatioConstraint["Parent"] = ViewDropdown
-	
-	local Symbol = Instance.new("TextLabel")
-	Symbol["TextWrapped"] = true
-	Symbol["BorderSizePixel"] = 0
-	Symbol["Name"] = "Symbol"
-	Symbol["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-	Symbol["FontFace"] = Font.new("rbxassetid://12187360881", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-	Symbol["Size"] = UDim2.new(0.09944687783718109, 0, 0.5775953531265259, 0)
-	Symbol["Position"] = UDim2.new(0.9004735946655273, 0, 0.19316284358501434, 0)
-	Symbol["TextColor3"] = Color3.fromRGB(255, 255, 255)
-	Symbol["BorderColor3"] = Color3.fromRGB(0, 0, 0)
-	Symbol["Text"] = ">"
-	Symbol["BackgroundTransparency"] = 1
-	Symbol["TextXAlignment"] = Enum.TextXAlignment.Left
-	Symbol["TextSize"] = 16
-	Symbol["Parent"] = ViewDropdown
-	
-	local UITextSizeConstraint_1 = Instance.new("UITextSizeConstraint")
-	UITextSizeConstraint_1["MaxTextSize"] = 17
-	UITextSizeConstraint_1["Parent"] = Symbol
-	
-	local Frame = Instance.new("Frame")
-	Frame["BorderSizePixel"] = 0
-	Frame["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-	Frame["Size"] = UDim2.new(0, 181, 0, 136)
-	Frame["BorderColor3"] = Color3.fromRGB(0, 0, 0)
-	Frame["Position"] = UDim2.new(-0.002761082025244832, 0, 0.9709997773170471, 0)
-	Frame["Parent"] = ViewDropdown
-	
-	local UIGradient_1 = Instance.new("UIGradient")
-	UIGradient_1["Color"] = ColorSequence.new({  ColorSequenceKeypoint.new(0, Color3.fromRGB(20.000000707805157, 20.000000707805157, 20.000000707805157)) , ColorSequenceKeypoint.new(1, Color3.fromRGB(10.000000353902578, 10.000000353902578, 10.000000353902578)) })
-	UIGradient_1["Parent"] = Frame
-	
-	local UICorner_1 = Instance.new("UICorner")
-	UICorner_1["CornerRadius"] = UDim.new(0, 0)
-	UICorner_1["Parent"] = Frame
-	
-	local Button = Instance.new("TextButton")
-	Button["BorderSizePixel"] = 0
-	Button["Name"] = "Button"
-	Button["TextSize"] = 17
-	Button["TextYAlignment"] = Enum.TextYAlignment.Bottom
-	Button["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-	Button["FontFace"] = Font.new("rbxassetid://12187373592", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-	Button["Size"] = UDim2.new(0, 180, 0, 21)
-	Button["TextColor3"] = Color3.fromRGB(17.00000088661909, 117.00000062584877, 167.00000524520874)
-	Button["BorderColor3"] = Color3.fromRGB(0, 0, 0)
-	Button["BackgroundTransparency"] = 1
-	Button["Parent"] = Frame
-	
-	local UIListLayout = Instance.new("UIListLayout")
-	UIListLayout["Padding"] = UDim.new(0, 2)
-	UIListLayout["SortOrder"] = Enum.SortOrder.LayoutOrder
-	UIListLayout["Parent"] = Frame
-	
-	local Button_1 = Instance.new("TextButton")
-	Button_1["BorderSizePixel"] = 0
-	Button_1["Name"] = "Button"
-	Button_1["TextSize"] = 17
-	Button_1["TextYAlignment"] = Enum.TextYAlignment.Bottom
-	Button_1["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-	Button_1["FontFace"] = Font.new("rbxassetid://12187373592", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-	Button_1["Size"] = UDim2.new(0, 180, 0, 21)
-	Button_1["TextColor3"] = Color3.fromRGB(26.000000350177288, 177.0000046491623, 252.00000017881393)
-	Button_1["BorderColor3"] = Color3.fromRGB(0, 0, 0)
-	Button_1["BackgroundTransparency"] = 1
-	Button_1["Parent"] = Frame
-	
-	local UIStroke = Instance.new("UIStroke")
-	UIStroke["Color"] = Color3.fromRGB(255, 255, 255)
-	UIStroke["Thickness"] = 0.20000000298023224
-	UIStroke["Parent"] = Button_1
-	
-	
 
-	-------------------------------------------
 	local ColorPicker = Instance.new("Frame")
 	ColorPicker["BorderSizePixel"] = 0
 	ColorPicker["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
@@ -1027,7 +898,7 @@ do -- UI Elements
 	ColorPicker["BackgroundTransparency"] = 1
 	ColorPicker["BorderColor3"] = Color3.fromRGB(0, 0, 0)
 	ColorPicker["Position"] = UDim2.new(0.21557384729385376, 0, 0.2920585572719574, 0)
-	ColorPicker["Parent"] = Examples
+	ColorPicker["Parent"] = game.StarterGui.Main_UI.Frame.Right.Frame
 	
 	local ViewColor = Instance.new("ImageButton")
 	ViewColor["BorderSizePixel"] = 0
@@ -1077,8 +948,9 @@ do -- UI Elements
 	local Frame = Instance.new("Frame")
 	Frame["BorderSizePixel"] = 0
 	Frame["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-	Frame["Size"] = UDim2.new(0, 181, 0, 144)
+	Frame["Size"] = UDim2.new(0, 181, 0, 1)
 	Frame["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	Frame["Visible"] = false
 	Frame["Position"] = UDim2.new(-0.0027583844494074583, 0, 0.9709985256195068, 0)
 	Frame["Parent"] = ViewColor
 	
@@ -1262,10 +1134,105 @@ do -- UI Elements
 	Line["BorderSizePixel"] = 0
 	Line["BackgroundColor3"] = Color3.fromRGB(0, 0, 0)
 	Line["Name"] = "Line"
-	Line["Size"] = UDim2.new(0, 180, 0, 1)
+	Line["Size"] = UDim2.new(0, 178, 0, 1)
 	Line["BorderColor3"] = Color3.fromRGB(0, 0, 0)
-	Line["Position"] = UDim2.new(0.005524862091988325, 0, 0.9709985256195068, 0)
+	Line["Position"] = UDim2.new(0.01104770042002201, 0, 0.9709985256195068, 0)
 	Line["Parent"] = ViewColor
+	
+	------------------------------------------------
+
+	local Dropdown = Instance.new("Frame")
+	Dropdown["BorderSizePixel"] = 0
+	Dropdown["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	Dropdown["Name"] = "Dropdown"
+	Dropdown["Size"] = UDim2.new(0, 186, 0, 32)
+	Dropdown["BackgroundTransparency"] = 1
+	Dropdown["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	Dropdown["Position"] = UDim2.new(0.21557384729385376, 0, 0.2920585572719574, 0)
+	Dropdown["Parent"] = game.StarterGui.Main_UI.Frame.Right.Frame
+	
+	local ViewDropdown = Instance.new("ImageButton")
+	ViewDropdown["BorderSizePixel"] = 0
+	ViewDropdown["Name"] = "ViewDropdown"
+	ViewDropdown["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	ViewDropdown["Image"] = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+	ViewDropdown["Size"] = UDim2.new(0, 181, 0, 102)
+	ViewDropdown["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	ViewDropdown["ImageTransparency"] = 1
+	ViewDropdown["Position"] = UDim2.new(0, 2, 0, 6)
+	ViewDropdown["BackgroundTransparency"] = 0.10000000149011612
+	ViewDropdown["Parent"] = Dropdown
+	
+	local Label = Instance.new("TextLabel")
+	Label["TextWrapped"] = true
+	Label["BorderSizePixel"] = 0
+	Label["Name"] = "Label"
+	Label["TextScaled"] = true
+	Label["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	Label["FontFace"] = Font.new("rbxassetid://12187360881", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	Label["Size"] = UDim2.new(0.7767943739891052, 0, 0.5775953531265259, 0)
+	Label["Position"] = UDim2.new(0.04080655425786972, 0, 0.19316284358501434, 0)
+	Label["TextColor3"] = Color3.fromRGB(255, 255, 255)
+	Label["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	Label["Text"] = "Dropdown"
+	Label["BackgroundTransparency"] = 1
+	Label["TextXAlignment"] = Enum.TextXAlignment.Left
+	Label["TextSize"] = 17
+	Label["Parent"] = ViewDropdown
+	
+	local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
+	UITextSizeConstraint["MaxTextSize"] = 17
+	UITextSizeConstraint["Parent"] = Label
+	
+	local UIGradient = Instance.new("UIGradient")
+	UIGradient["Color"] = ColorSequence.new({  ColorSequenceKeypoint.new(0, Color3.fromRGB(20.000000707805157, 20.000000707805157, 20.000000707805157)) , ColorSequenceKeypoint.new(1, Color3.fromRGB(10.000000353902578, 10.000000353902578, 10.000000353902578)) })
+	UIGradient["Parent"] = ViewDropdown
+	
+	local UICorner = Instance.new("UICorner")
+	UICorner["CornerRadius"] = UDim.new(0, 2)
+	UICorner["Parent"] = ViewDropdown
+	
+	local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+	UIAspectRatioConstraint["AspectRatio"] = 7.239999771118164
+	UIAspectRatioConstraint["Parent"] = ViewDropdown
+	
+	local Symbol = Instance.new("TextLabel")
+	Symbol["TextWrapped"] = true
+	Symbol["BorderSizePixel"] = 0
+	Symbol["Name"] = "Symbol"
+	Symbol["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	Symbol["FontFace"] = Font.new("rbxassetid://12187360881", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	Symbol["Size"] = UDim2.new(0.09944687783718109, 0, 0.5775953531265259, 0)
+	Symbol["Position"] = UDim2.new(0.9004735946655273, 0, 0.19316284358501434, 0)
+	Symbol["TextColor3"] = Color3.fromRGB(255, 255, 255)
+	Symbol["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	Symbol["Text"] = ">"
+	Symbol["BackgroundTransparency"] = 1
+	Symbol["TextXAlignment"] = Enum.TextXAlignment.Left
+	Symbol["TextSize"] = 16
+	Symbol["Parent"] = ViewDropdown
+	
+	local UITextSizeConstraint_1 = Instance.new("UITextSizeConstraint")
+	UITextSizeConstraint_1["MaxTextSize"] = 17
+	UITextSizeConstraint_1["Parent"] = Symbol
+	
+	local Frame = Instance.new("Frame")
+	Frame["BorderSizePixel"] = 0
+	Frame["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+	Frame["Size"] = UDim2.new(0, 181, 0, 0)
+	Frame["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+	Frame["Visible"] = false
+	Frame["Position"] = UDim2.new(-0.002761082025244832, 0, 0.9710034132003784, 0)
+	Frame["Parent"] = ViewDropdown
+	
+	local UIGradient_1 = Instance.new("UIGradient")
+	UIGradient_1["Color"] = ColorSequence.new({  ColorSequenceKeypoint.new(0, Color3.fromRGB(20.000000707805157, 20.000000707805157, 20.000000707805157)) , ColorSequenceKeypoint.new(1, Color3.fromRGB(10.000000353902578, 10.000000353902578, 10.000000353902578)) })
+	UIGradient_1["Parent"] = Frame
+	
+	local UICorner_1 = Instance.new("UICorner")
+	UICorner_1["CornerRadius"] = UDim.new(0, 0)
+	UICorner_1["Parent"] = Frame
+	
 	
 end
 
@@ -2027,7 +1994,7 @@ do -- UI Functions
 		local darknessPicker = frame:WaitForChild("DarknessPicker")
 		local darknessSlider: ImageButton = darknessPicker:WaitForChild("Slider")
 		
-		local colourDisplay = colorpicker:WaitForChild("ColorDisplay")
+		local colourDisplay = ViewColor:WaitForChild("ColorDisplay")
 		local UIS = game:GetService("UserInputService")
 		local TS = game:GetService("TweenService")
 		
