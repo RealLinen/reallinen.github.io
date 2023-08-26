@@ -2,6 +2,10 @@
 -- Made by a friend
 
 -----------------------------------------
+-- Bubble Gum Simulator V Script
+-- Made by a friend
+
+-----------------------------------------
 -- [ UI Library Credits: Linen & Dawid]
 local lib = loadstring(game:HttpGet "https://linenapi.linenporches.repl.co/Files/Libs/UI/VapeUI.lua")()
 
@@ -11,8 +15,8 @@ local win = lib:Window("Bubble Gum Simulator V", Color3.fromRGB(44, 120, 224), E
 local replicatedStorage = game:GetService("ReplicatedStorage")
 
 -- [ Values ] --
-getgenv().autoBubble = true;
-getgenv().hatchEgg = true
+getgenv().autoBubble = false;
+getgenv().hatchEgg = false
 
 -- [ Remote(s) ] --
 -- The remotes are created for each client based on their userid and the type of remote.
@@ -69,8 +73,10 @@ end
 function hatchEgg(eggType, hatchType)
   warn(eggType, hatchType)
   task.spawn(function()
+  while getgenv().hatchEgg == true do
     remotePath:FireServer(unpack({ [1] = "PurchaseEgg", [2] = eggType, [3] = hatchType }))
     game:GetService("RunService").RenderStepped:Wait()
+    end
   end)
 end
 
@@ -132,14 +138,6 @@ farmTab:Toggle("Auto Bubble", false, function(value)
   end
 end)
 
-farmTab:Label("Egg Farming Options")
-farmTab:Toggle("Hatch Egg", false, function(value)
-  getgenv().hatchEgg = value
-  if value and chosenEgg and chosenHatchType then
-    hatchEgg(chosenEgg, chosenHatchType)
-  end
-end)
-
 local chosenEgg;
 farmTab:Dropdown("Eggs", eggOptions, function(value)
   chosenEgg = value
@@ -150,6 +148,15 @@ farmTab:Dropdown("Hatch Types", { "Single", "Multi" }, function(value)
   chosenHatchType = value;
 end)
 
+
+farmTab:Label("Egg Farming Options")
+farmTab:Toggle("Hatch Egg", false, function(value)
+  getgenv().hatchEgg = value
+  warn(value, chosenEgg, chosenHatchType)
+  if value and chosenEgg and chosenHatchType then
+    hatchEgg(chosenEgg, chosenHatchType)
+  end
+end)
 
 -- [ Teleports ] --
 local chosenIsland;
