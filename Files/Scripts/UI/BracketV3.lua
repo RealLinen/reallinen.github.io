@@ -1,4 +1,4 @@
--- Only changes is that this returns the ScreenGui
+-- Only changes is that this returns the ScreenGui. To get this, load the UI then do: print(Library["UI"])
 local Library = {Toggle = true,FirstTab = nil,TabCount = 0,ColorTable = {}}
 
 local RunService = game:GetService("RunService")
@@ -60,7 +60,7 @@ function Library:CreateWindow(Config, Parent)
 	Screen.Parent = Parent
 	Topbar.WindowName.Text = Config.WindowName
 
-  WindowsInit.UI = Screen -- Basically you can manually cache the ScreenGui and delete it urself on re-execution
+        WindowInit.UI = Screen -- Basically you can manually cache the ScreenGui and delete it urself on re-execution
   
 	MakeDraggable(Topbar,Main)
 	local function CloseAll()
