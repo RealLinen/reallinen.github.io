@@ -1,7 +1,7 @@
--- Written by: Linen#3485 [ on discord.com ]
+-- Written by: linenhs [ on discord.com ]
 -- Optimized for performance, can be re-executed as many times as you want
 
--- V3rmillion Profile: https://v3rmillion.net/member.php?action=profile&uid=2467334
+-- V3rmillion Profile: https://v3rm.net/members/linen.418/
 -- Version 0.7
 -- NOW YOU HAVE TO MANUALLY CALL Module:Load()
 
