@@ -39,7 +39,10 @@ end
 
 
 -- Hooking rblox calls
-getgenv()["hookmt"] = getgenv()["hookmt"] or {}
+getgenv()["hookmt"] = getgenv()["hookmt"] or {
+    player = game:GetService("Players").LocalPlayer,
+    teleportservice = game:GetService("TeleportService"),
+}
 getgenv()["hookmt"].oldIndex = getgenv()["hookmt"].oldIndex or hookmetamethod(game, "__index", newcclosure(function(...)
     local Args = {...}
     local defaultvalue = newcclosure(function()
@@ -66,4 +69,16 @@ end))
 getgenv()["hookmt"]["__index"] = __indexHook
 getgenv()["hookmt"]["__newindex"] = __newindexHook
 getgenv()["hookmt"]["__namecall"] = __namecallHook
+getgenv()["hookmt"]["rejoin"] = function(jobid)
+    if typeof(jobid) == "boolean" then
+        -- Rejoin same server
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, getgenv()["hookmt"]["player"])
+    elseif typeof(jobid) == "string" then
+        -- Join to custom JobId
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, jobid, getgenv()["hookmt"]["player"])
+    else 
+        -- Rejoin same game but different server
+        getgenv()["hookmt"].teleportservice:Teleport(game.PlaceId, getgenv()["hookmt"]["player"])
+    end
+end
 return Initialize
