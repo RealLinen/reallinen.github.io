@@ -1,10 +1,10 @@
 --[[
     GET/REQUEST UPDATES HERE: https://discord.gg/rc3TDqKmjN
-    Creator: Linen#3485
+    Creator: linenhs (discord.com)
 
     [ * Links:
          Documentation: https://reallinen.gitbook.io/3d-ui-linui-documentation/
-         V3rmillion Thread: https://v3rmillion.net/showthread.php?tid=1213514
+         V3rmillion Thread: https://v3rm.net/threads/linui-3d-roblox-ui-library.6666/
     ]
 
     This automatically deletes connections on re-execution, basically reducing lag [ You shouldn't lag with this UI Library ]
