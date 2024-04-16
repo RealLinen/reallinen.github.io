@@ -70,15 +70,15 @@ getgenv()["hookmt"]["__index"] = __indexHook
 getgenv()["hookmt"]["__newindex"] = __newindexHook
 getgenv()["hookmt"]["__namecall"] = __namecallHook
 getgenv()["hookmt"]["rejoin"] = function(jobid)
-    if typeof(jobid) == "boolean" then
+    if typeof(jobid) == "boolean" or jobid == nil then
         -- Rejoin same server
-        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, getgenv()["hookmt"]["player"])
+        getgenv()["hookmt"].teleportservice:TeleportToPlaceInstance(game.PlaceId, game.JobId, getgenv()["hookmt"]["player"])
     elseif typeof(jobid) == "string" then
         -- Join to custom JobId
-        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, jobid, getgenv()["hookmt"]["player"])
-    else 
-        -- Rejoin same game but different server
-        getgenv()["hookmt"].teleportservice:Teleport(game.PlaceId, getgenv()["hookmt"]["player"])
+        getgenv()["hookmt"].teleportservice:TeleportToPlaceInstance(game.PlaceId, jobid, getgenv()["hookmt"]["player"])
     end
 end
 return Initialize
+
+
+-- Added rejoin function
