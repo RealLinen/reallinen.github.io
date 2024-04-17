@@ -7,7 +7,7 @@ getgenv()["getgchook"] = typeof(getgenv()["getgchook"]) == "table" and getgenv()
     Cached = {}
 }; getgenv()["getgchook"]["Hooks"] = getgenv()["getgchook"]["Hooks"] or {}; getgenv()["getgchook"]["Cached"] = getgenv()["getgchook"]["Cached"] or {}
 
-getgenv()["getgchook"]["OnFunction"] = getgenv()["getgchook"]["OnFunction"] or function(name, func, upvalues)
+getgchook["OnFunction"] = getgchook["OnFunction"] or function(name, func, upvalues)
 -- name: string | func: the function | upvalues: the amount of upvalues the function has
     -- Example
     if name == "Shoot" then
@@ -18,10 +18,10 @@ getgenv()["getgchook"]["OnFunction"] = getgenv()["getgchook"]["OnFunction"] or f
         end
     end
 end
-getgenv()["getgchook"]["OnSearchEnded"] = getgenv()["getgchook"]["OnSearchEnded"] or function(str)
+getgchook["OnSearchEnded"] = getgchook["OnSearchEnded"] or function(str)
     -- str is a string containing the done, you can use 'setclipboard' to copy it to ur clipboard
-    print("Dumped! Results copied to clipboard")
-    setclipboard(str)
+    --print("Dumped! Results copied to clipboard")
+    --setclipboard(str)
 end
 
 -----------------------------
@@ -72,6 +72,6 @@ getgchook["OnSearchEnded"](str)
     end
     getgchook["OnSearchEnded"] = function(results)
         -- After the whole GC is dumped, it will copy the results to ur clipboard
-        setclipboard(results)
+        --setclipboard(results)
     end
 ]]
