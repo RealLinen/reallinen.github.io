@@ -54,13 +54,13 @@ local function search(copy)
             getgchook["OnFunction"](info, func, upvals)
 
             -- Basically hook everything so u can modify
-            if not getgchook["Cached"][info] then
+            if not getgchook["Cached"][func] then
                 pcall(function()
-                    getgchook["Cached"][info] = hookfunc(func, function(...)
+                    getgchook["Cached"][func] = hookfunc(func, function(...)
                         getgchook["Hooks"][info] = type(getgchook["Hooks"][info]) == "function" and getgchook["Hooks"][info] or function(old, ...)
                             return old(...)
                         end
-                        return getgchook["Hooks"][info](getgchook["Cached"][info], ...)
+                        return getgchook["Hooks"][info](getgchook["Cached"][func], ...)
                     end)
                 end)
             end
@@ -78,6 +78,14 @@ local function search(copy)
         print("Dumped! Results copied to clipboard");
         (setclipboard or function() end)(str)
     end
+end
+
+if not getgchook["onchardeath"] then
+    -- Update values live
+    getgchook["onchardeath"] = true
+    game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function()
+        search()
+    end)
 end
 
 getgchook["search"] = search
