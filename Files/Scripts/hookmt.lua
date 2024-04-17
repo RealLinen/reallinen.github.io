@@ -47,7 +47,7 @@ getgenv()["hookmt"].oldIndex = getgenv()["hookmt"].oldIndex or hookmetamethod(ga
     local Args = {...}
     local defaultvalue = newcclosure(function(...)
         local otherargs = {...}
-        if #otherargs < 0 then
+        if #otherargs <= 0 then
             otherargs = Args
         end
         return getgenv()["hookmt"].oldIndex(unpack(otherargs))
@@ -58,7 +58,7 @@ getgenv()["hookmt"].oldNewIndex = getgenv()["hookmt"].oldNewIndex or hookmetamet
     local Args = {...}
     local defaultvalue = newcclosure(function(...)
         local otherargs = {...}
-        if #otherargs < 0 then
+        if #otherargs <= 0 then
             otherargs = Args
         end
         return getgenv()["hookmt"].oldNewIndex(unpack(otherargs))
@@ -69,7 +69,7 @@ getgenv()["hookmt"].oldNamecall = getgenv()["hookmt"].oldNamecall or hookmetamet
     local Args = {...}
     local defaultvalue = newcclosure(function(...)
         local otherargs = {...}
-        if #otherargs < 0 then
+        if #otherargs <= 0 then
             otherargs = Args
         end
         return getgenv()["hookmt"].oldNamecall(Self, unpack(otherargs))
