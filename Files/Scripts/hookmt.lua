@@ -45,22 +45,34 @@ getgenv()["hookmt"] = getgenv()["hookmt"] or {
 }
 getgenv()["hookmt"].oldIndex = getgenv()["hookmt"].oldIndex or hookmetamethod(game, "__index", newcclosure(function(...)
     local Args = {...}
-    local defaultvalue = newcclosure(function()
-        return getgenv()["hookmt"].oldIndex(unpack(Args))
+    local defaultvalue = newcclosure(function(...)
+        local otherargs = {...}
+        if #otherargs < 0 then
+            otherargs = Args
+        end
+        return getgenv()["hookmt"].oldIndex(unpack(otherargs))
     end)
     return newcclosure((getgenv()["hookmt"]["__index"] or __indexHook))((checkcaller or function() return false end)(), defaultvalue, ...)
 end))
 getgenv()["hookmt"].oldNewIndex = getgenv()["hookmt"].oldNewIndex or hookmetamethod(game, "__newindex", newcclosure(function(...)
     local Args = {...}
-    local defaultvalue = newcclosure(function()
-        return getgenv()["hookmt"].oldNewIndex(unpack(Args))
+    local defaultvalue = newcclosure(function(...)
+        local otherargs = {...}
+        if #otherargs < 0 then
+            otherargs = Args
+        end
+        return getgenv()["hookmt"].oldNewIndex(unpack(otherargs))
     end)
     return newcclosure((getgenv()["hookmt"]["__newindex"] or __newindexHook))((checkcaller or function() return false end)(), defaultvalue, ...)
 end))
 getgenv()["hookmt"].oldNamecall = getgenv()["hookmt"].oldNamecall or hookmetamethod(game, "__namecall", newcclosure(function(Self, ...)
     local Args = {...}
-    local defaultvalue = newcclosure(function()
-        return getgenv()["hookmt"].oldNamecall(Self, unpack(Args))
+    local defaultvalue = newcclosure(function(...)
+        local otherargs = {...}
+        if #otherargs < 0 then
+            otherargs = Args
+        end
+        return getgenv()["hookmt"].oldNamecall(Self, unpack(otherargs))
     end)
     return newcclosure((getgenv()["hookmt"]["__namecall"] or __namecallHook))((checkcaller or function() return false end)(), defaultvalue, Self, (getnamecallmethod or function() return "" end)(), ...)
 end))
@@ -80,5 +92,6 @@ getgenv()["hookmt"]["rejoin"] = function(jobid)
 end
 return Initialize
 
-
--- Added rejoin function
+-- To return custom values, define it inside of defaultvalues. For example:
+-- Lets say Self was the Humanoid and we were on the __newindex [ setting a value ]
+-- defaultvalues(Self, "WalkSpeed", 50)
