@@ -19,6 +19,7 @@ getgchook["OnFunction"] = getgchook["OnFunction"] or function(name, func, upvalu
     end
 end
 getgchook["OnSearchEnded"] = getgchook["OnSearchEnded"] or function(str)
+    -- call getgchook.search(true) to copy the dumped functions to ur clipboard
     -- str is a string containing the done, you can use 'setclipboard' to copy it to ur clipboard
     --print("Dumped! Results copied to clipboard")
     --setclipboard(str)
@@ -36,12 +37,15 @@ local formatupv = function(v)
     return #v
 end
 
-local function search()
+local function search(copy)
     for i,v in next, getgc(true) do
         if typeof(v) == "function" then
             local info = debug.info(v, "n")
             local source = debug.info(v, "s")
             if source == "" or source == "[C]" or info == ""  then 
+                -- [C] is the exploit global functions
+                -- "" as the source means the exploits global varibales that you or a script u executed made
+                -- "" as info means invalid source or sum else idk lol
                 continue; 
             end
             -----------------------
@@ -70,6 +74,10 @@ local function search()
     end
     
     getgchook["OnSearchEnded"](str)
+    if copy then
+        print("Dumped! Results copied to clipboard");
+        (setclipboard or function() end)(str)
+    end
 end
 
 getgchook["search"] = search
@@ -79,7 +87,10 @@ search()
     getgchook["OnFunction"] = function(name, func, upvalues_amount)
         -- Each function that the GC Dump finds, it will pass it through here [ can be used for hooking games with ammo, etc ]
     end
-    getgchook.search() -- this is so OnFunction can get called with all the found functions
+
+    -- 
+    getgchook.search() -- this is also for OnFunction to get called
+    getgchook.search(true) -- this is for the dumped functions to get copied to ur clipboard, OnFunction will still get called
 
     getgchook["OnSearchEnded"] = function(results)
         -- After the whole GC is dumped, it will copy the results to ur clipboard
