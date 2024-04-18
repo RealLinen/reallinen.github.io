@@ -2,6 +2,9 @@
 -- Github: https://github.com/RealLinen
 -- Discord: linenhs
 -- Use this to dump game functions 
+
+
+-- BETTER VERSION OF: http://reallinen.github.io/Files/Scripts/getgchook.lua
 local ENV = "gchook"
 getgenv()[ENV] = type(getgenv()[ENV]) == "table" and getgenv()[ENV] or {
     Hooks = {}
