@@ -2,7 +2,7 @@
 -- Optimized for performance, can be re-executed as many times as you want
 
 -- V3rmillion Profile: https://v3rm.net/members/linen.418/
--- Version 0.7
+-- Version 0.85
 -- NOW YOU HAVE TO MANUALLY CALL Module:Load()
 
 local Module = { LuaLoopCount = 0, Cache = {} }
