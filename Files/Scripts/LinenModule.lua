@@ -323,6 +323,7 @@ function Module:Load(force)
 
 end
 --
+getgenv().LinenModule = Module
 return Module
 
 --[[ Usage Example:
