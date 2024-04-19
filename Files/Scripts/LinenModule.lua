@@ -5,7 +5,7 @@
 -- Version 0.7
 -- NOW YOU HAVE TO MANUALLY CALL Module:Load()
 
-local Module = { LuaLoopCount = 0 }
+local Module = { LuaLoopCount = 0, Cache = {} }
 local CustomData = {}
 
 local HttpService = game:GetService("HttpService")
@@ -206,14 +206,14 @@ end
 --~~~~~~~~~~~~ Caching Framework
 Module.Cache = {
     add = function(value: any, name: string)
-        local GlobalCache = getgenv().LU_Loaded or Module:LoadCache()
+        local GlobalCache = getgenv().LU_Loaded or Module
         local cacheName = name or #GlobalCache["Cache"]+1
 
         GlobalCache["Cache"][cacheName] = value
     end,
 
     del = function(name: string)
-        local GlobalCache = getgenv().LU_Loaded or Module:LoadCache()
+        local GlobalCache = getgenv().LU_Loaded or Module
         local cacheName = name or #GlobalCache["Cache"]+1
     
         Module:EndObject(GlobalCache["Cache"][cacheName], GlobalCache["Cache"], cacheName)    
@@ -312,6 +312,13 @@ function Module:Load(force)
     end
 
     getgenv().LU_Loaded = { startTime = tick(), Events = {}, Cache = {} }
+    if Module["getTableCount"](Module["Cache"]) > 0 then
+        for i,v in next, Module["Cache"] do
+            --add old acche
+            getgenv().LU_Loaded["Cache"][i]= v
+        end
+        Module["Cache"] = {}
+    end
     return getgenv().LU_Loaded 
 
 end
