@@ -2,6 +2,7 @@
 -- Will allow you execute most scripts [syn library incliuded]
 -- NOT MADE BY ME, ORIGINAL: ttps://pastebin.com/eKuLr55U
 
+
 local bit = bit32
 function ToEnum(a)
  for i, v in pairs(Enum.KeyCode:GetEnumItems()) do if tostring(v) == a then return v end end
@@ -877,9 +878,15 @@ end
 
 local Count = 0
 local Total = 0
+for index, _ in pairs(Descendants(funcs)) do
+ if not getgenv()[index] then
+  Total = Total + 1
+ end
+end
 for i, v in pairs(Descendants(funcs)) do
  if not getgenv()[i] then Count = Count + 1 end
  local Result = SafeOverride(i, v)
- --local str = Result == 1 and ('%s %s already exists.'):format(type(v), i) or Result == 2 and ("Added %s %s to the global environment. (%d/%d)"):format(type(v), i, Count, Total) or Result ~= 1 and Result ~= 2 and ("Unknown result for function %s."):format(type(v), i)
+ local str = Result == 1 and ('%s %s already exists.'):format(type(v), i) or Result == 2 and ("Added %s %s to the global environment. (%d/%d)"):format(type(v), i, Count, Total) or Result ~= 1 and Result ~= 2 and ("Unknown result for function %s."):format(type(v), i)
+ --print(str)
 end
-pcall(funcs.syn.protect_gui, DrawingDict)
+funcs.syn.protect_gui(DrawingDict)
