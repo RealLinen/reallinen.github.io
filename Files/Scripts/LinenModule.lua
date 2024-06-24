@@ -2,10 +2,16 @@
 -- Optimized for performance, can be re-executed as many times as you want
 
 -- V3rmillion Profile: https://v3rm.net/members/linen.418/
--- Version 1.1
--- Added DeepClone function, basically clones a table giving you the option t modify the output of the clone in the second argument (check out the function)
--- NOW YOU HAVE TO MANUALLY CALL Module:Load() to delete, end or stop previous loops, objects or events
+-- Version 1.2
 
+--[[ Changelogs ->
+   1.2 -
+   Cache.add returns the first argument passed, example: print(Cache.add(game.Players.PlayerAdded:Connect(function() end))) -- output: RBXscriptsignal
+
+   1.1 -
+   Added DeepClone function, basically clones a table giving you the option t modify the output of the clone in the second argument (check out the function)
+   NOW YOU HAVE TO MANUALLY CALL Module:Load() to delete, end or stop previous loops, objects or events
+]]
 local Module = { LuaLoopCount = 0, Cache = {} }
 local CustomData = {}
 
@@ -226,6 +232,7 @@ Module.Cache = {
         local cacheName = name or #GlobalCache["Cache"]+1
 
         GlobalCache["Cache"][cacheName] = value
+        return value
     end,
 
     del = function(name: string)
