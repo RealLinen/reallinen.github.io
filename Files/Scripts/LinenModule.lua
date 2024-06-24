@@ -1,9 +1,10 @@
--- Written by: linenhs [ on discord.com ]
+-- Written by: reallinens [ on discord.com ]
 -- Optimized for performance, can be re-executed as many times as you want
 
 -- V3rmillion Profile: https://v3rm.net/members/linen.418/
--- Version 0.85
--- NOW YOU HAVE TO MANUALLY CALL Module:Load()
+-- Version 1.1
+-- Added DeepClone function, basically clones a table giving you the option t modify the output of the clone in the second argument (check out the function)
+-- NOW YOU HAVE TO MANUALLY CALL Module:Load() to delete, end or stop previous loops, objects or events
 
 local Module = { LuaLoopCount = 0, Cache = {} }
 local CustomData = {}
@@ -80,6 +81,20 @@ Module["TweenObjects"] = function(tweeninfo, propertyTable, ...)
         v:Play()
     end
     return Tweens
+end
+
+Module["DeepClone"] = function(tb, func) -- Deep clones a table
+    local result = {}
+    func = type(func) == "function" and func or function(...) return ... end
+    for i, v in next, tb do
+        local _i, _v = i, v
+        _i = type(_i) == "table" and Module["DeepClone"](_i, func) or _i
+        _v = type(_v) == "table" and Module["DeepClone"](_v, func) or _v
+        _i = func(_i) or _i
+        _v = func(_v) or _v
+        result[_i] = _v
+    end
+    return result
 end
 
 Module["FileExist"] = function(...)
@@ -189,7 +204,8 @@ Module["Loop"] = function(func: "Function to run in the loop", seconds: "Each se
 end
 
 --~~~~~~~~~~~~ Table Functions
-if setreadonly then setreadonly(table, false) end
+local table = table
+if setreadonly then setreadonly(table, false) else table = Module["DeepClone"](table) end
 
 table.slice = table.slice or function(tbl: {}, first: number, last: number, step: number) -- Works like JavaScripts slice
     local sliced = {}
@@ -223,13 +239,11 @@ Module.Cache = {
 --~~~~~~~~~~~~ Http Functions
 Module.Http = {
     GET = function(link)
-        
         if type(link)~="string" then return nil; end
         local suc,err = pcall(function() return game:HttpGet(link) end)
         -- >.< Deku Demz Is Gay  --
         if suc then return err; end
         return nil
-
     end
 }
 
