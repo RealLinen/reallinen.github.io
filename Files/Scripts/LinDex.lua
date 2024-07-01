@@ -1,4 +1,4 @@
--- LinDex V1.5 | Profile: https://v3rm.net/members/linen.418/
+-- LinDex V1.5.1 | Profile: https://v3rm.net/members/linen.418/
 -- Documentation: https://v3rm.net/threads/lindex-make-roblox-game-exploiting-easier.9629/
 
 
@@ -93,9 +93,13 @@ if not Cached["Loaded"] then -- so we don't cause lag on re-execution
     for classname, properties in next, getgenv()["Cached-#LinDEX"]["Loaded"]["AllClasses"] do
         for propname, _ in next, properties do
             ItemBy[propname] = {"any", function(obj, value)
-                if typeof(value) == "function" then -- yes you can pass functions as the value, it gets called with the object as the first argument so you can do checks before returning a value
+                if typeof(value) == "function" then -- yes you can pass functions as the value, it gets called with the object as the first argument so you can do checks before returning true to pass it or false to not
                     local suc, code = pcall(value, obj)
-                    value = code
+                    if suc and code then
+                        return true
+                    else
+                        return false
+                    end
                 end
                 local val = obj[propname]
                 return val == value
