@@ -121,6 +121,10 @@ local Library = {
 for classname, properties in next, AllClasses do
     for propname, _ in next, properties do
         Library.ItemBy[propname] = {"any", function(obj, value)
+            if typeof(value) == "function" then
+                local suc, code = pcall(value, obj)
+                value = code
+            end
             local val = obj[propname]
             return val == value
         end}
