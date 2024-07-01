@@ -1,4 +1,4 @@
--- LinDex V1.3 | Profile: https://v3rm.net/members/linen.418/
+-- LinDex V1 | Profile: https://v3rm.net/members/linen.418/
 -- Documentation: https://v3rm.net/threads/lindex-make-roblox-game-exploiting-easier.9629/
 local function GetClassProperties()
     local HttpService = game:GetService("HttpService")
@@ -127,9 +127,9 @@ for classname, properties in next, AllClasses do
     end
 end
 
-Library.GetInstancePath = function(instance)
-    if typeof(instance) == "Instance" then
-        local name = instance:GetFullName()
+Library.GetInstancePath = function(inst)
+    if typeof(inst) == "Instance" then
+        local name = inst:GetFullName()
         local newname = name
         local serv = string.split(name, ".")
         if Services[serv[1]] then
@@ -142,7 +142,7 @@ Library.GetInstancePath = function(instance)
             end
             name = newname
         end
-        return naem
+        return name
     end
     return ""
 end
