@@ -1,6 +1,17 @@
--- LinDex V1 | Profile: https://v3rm.net/members/linen.418/
+-- LinDex V1.4 | Profile: https://v3rm.net/members/linen.418/
 -- Documentation: https://v3rm.net/threads/lindex-make-roblox-game-exploiting-easier.9629/
-local function GetClassProperties()
+
+
+local start = (tick or os.clock)(); -- for debugging
+local Properties; -- gather all propertiies
+local AllClasses; -- gather all class data
+local Cached = getgenv()["Cached-#LinDEX"] or {};
+local Services = {};
+
+-- Get Decesdants of everything
+if not Cached["Loaded"] then -- so we don't cause lag on re-execution
+    -- For getting class properties
+    local function GetClassProperties()
     local HttpService = game:GetService("HttpService")
     local URL = "https://anaminus.github.io/rbx/json/api/latest.json"    
     local Classes = {}
@@ -60,26 +71,39 @@ local function GetClassProperties()
     return function(ClassName: string)
         return ClassName and Classes[ClassName] or Classes
     end
-end
-
-local start = (tick or os.clock)() -- for debugging
-local Properties = GetClassProperties() -- gather all propertiies
-local AllClasses = Properties() -- gather all class data
-local Cached = getgenv()["Cached-#LinDEX"] or {}
-local Services = {}
-for i, v in next, game:GetChildren() do
-    local success = pcall(function()
-        return game.GetChildren(game, game.GetService(game, v.Name))
-    end)
-    if success then
-        Services[v.Name] = v
     end
-end
 
--- Get Decesdants of everything
-local items = 0
-if not Cached["Loaded"] then -- so we don't cause lag on re-execution
-    getgenv()["Cached-#LinDEX"] = { Loaded = { ClassName = "__IGNORE", Objects = 0 } }
+    -- Initialize the table
+    getgenv()["Cached-#LinDEX"] = { Loaded = { ClassName = "__IGNORE", Objects = 0, Properties = GetClassProperties() } }
+    getgenv()["Cached-#LinDEX"]["Loaded"]["AllClasses"] = getgenv()["Cached-#LinDEX"]["Loaded"]["Properties"]()
+
+    -- Get all game services
+    for i, v in next, game:GetChildren() do
+        local success = pcall(function()
+            return game.GetChildren(game, game.GetService(game, v.Name))
+        end)
+        if success then
+            Services[v.Name] = v
+        end
+    end
+    getgenv()["Cached-#LinDEX"]["Loaded"]["Services"] = Services
+
+    -- Cache all items
+    local ItemBy = {}
+    for classname, properties in next, getgenv()["Cached-#LinDEX"]["Loaded"]["AllClasses"] do
+        for propname, _ in next, properties do
+            ItemBy[propname] = {"any", function(obj, value)
+                if typeof(value) == "function" then -- yes you can pass functions as the value, it gets called with the object as the first argument so you can do checks before returning a value
+                    local suc, code = pcall(value, obj)
+                    value = code
+                end
+                local val = obj[propname]
+                return val == value
+            end}
+        end
+    end
+    getgenv()["Cached-#LinDEX"]["Loaded"]["ItemBy"] = ItemBy
+
     local other = {}
     for i, v in next, Services do
         for _, obj in next, v:GetDescendants() do
@@ -103,13 +127,17 @@ if not Cached["Loaded"] then -- so we don't cause lag on re-execution
             end
             getgenv()["Cached-#LinDEX"][#getgenv()["Cached-#LinDEX"]+1] = obj
             getgenv()["Cached-#LinDEX"]["Loaded"]["Objects"] += 1
-            items += 1
         end
-    end; getgenv()["Cached-#LinDEX"]["Loaded"]["Done"] = true;
+    end; 
+    task.wait(1) -- Just Incase
+    getgenv()["Cached-#LinDEX"]["Loaded"]["Done"] = true;
 end
+Properties = getgenv()["Cached-#LinDEX"]["Loaded"]["Properties"]
+AllClasses = getgenv()["Cached-#LinDEX"]["Loaded"]["AllClasses"]
+Services = getgenv()["Cached-#LinDEX"]["Loaded"]["Services"]
 
 -- this line will prevent no objects getting listed
-repeat task.wait() until getgenv()["Cached-#LinDEX"]["Loaded"]["Done"]
+repeat task.wait(.1) until getgenv()["Cached-#LinDEX"]["Loaded"]["Done"]
 
 -- Functions
 local Library = {
@@ -117,20 +145,7 @@ local Library = {
     }
 }
 
--- Auto-generate logging based on class data
-for classname, properties in next, AllClasses do
-    for propname, _ in next, properties do
-        Library.ItemBy[propname] = {"any", function(obj, value)
-            if typeof(value) == "function" then
-                local suc, code = pcall(value, obj)
-                value = code
-            end
-            local val = obj[propname]
-            return val == value
-        end}
-    end
-end
-
+Library.ItemBy =  getgenv()["Cached-#LinDEX"]["Loaded"]["ItemBy"]
 Library.GetInstancePath = function(inst)
     if typeof(inst) == "Instance" then
         local name = inst:GetFullName()
@@ -200,8 +215,19 @@ end
 local endtime = (tick or os.clock)()
 Library["Debug"] = function()
     print("Loaded in", (endtime - start).."s")
+    print("Items Cached", getgenv()["Cached-#LinDEX"]["Loaded"]["Objects"])
     --endtime = (tick or os.clock)() - start
 end
-game:GetService("HttpService"):JSONEncode(Library.GetItemBy("Name", "_")) -- this line starts the whole cache
+
+-- Starting the cache so we don't get bugs/errors
+if not getgenv()["Cached-#LinDEX"]["Loaded"]["__ran"] then
+    getgenv()["Cached-#LinDEX"]["Loaded"]["__ran"] = true
+    for i = 1, 2 do
+        game:GetService("HttpService"):JSONEncode(Library.GetItemBy("Name", "_"))
+        game:GetService("HttpService"):JSONEncode(Library.GetItemBy("Text", "_"))
+        game:GetService("HttpService"):JSONEncode(Library.GetItemBy("Health", 10))
+    end
+end
+
 --Library["Debug"]()
 return Library
