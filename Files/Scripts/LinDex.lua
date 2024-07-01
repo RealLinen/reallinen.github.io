@@ -1,4 +1,4 @@
--- LinDex V1.4 | Profile: https://v3rm.net/members/linen.418/
+-- LinDex V1.5 | Profile: https://v3rm.net/members/linen.418/
 -- Documentation: https://v3rm.net/threads/lindex-make-roblox-game-exploiting-easier.9629/
 
 
@@ -156,7 +156,14 @@ Library.GetInstancePath = function(inst)
             serv[1] = nil
             for i, v in next, serv do
                 if v then
-                    newname ..= "."..v
+                    local touse = '"' -- smart parsing
+                    if v:find('"') then
+                        touse = "'"
+                    end
+                    if v:find("'") then
+                        touse = '< ?CANNOT PARSE? >' -- they won, but you will still know where it starts and ends
+                    end
+                    newname ..= "["..touse..v..touse.."]"
                 end
             end
             name = newname
