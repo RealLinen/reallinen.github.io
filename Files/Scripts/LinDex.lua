@@ -1,4 +1,4 @@
--- LinDex V1.5.1 | Profile: https://v3rm.net/members/linen.418/
+-- LinDex V1.5.2 | Profile: https://v3rm.net/members/linen.418/
 -- Documentation: https://v3rm.net/threads/lindex-make-roblox-game-exploiting-easier.9629/
 
 
@@ -12,13 +12,13 @@ local Services = {};
 if not Cached["Loaded"] then -- so we don't cause lag on re-execution
     -- For getting class properties
     local function GetClassProperties()
-    local HttpService = game:GetService("HttpService")
+    local JsonAPI = loadstring(request({ Url = "https://reallinen.github.io/Files/Scripts/json.lua", Method = "GET" }).Body)()
     local URL = "https://anaminus.github.io/rbx/json/api/latest.json"    
     local Classes = {}
     
     local GetAPIData; GetAPIData = function()
         local success, response = pcall(function()
-            return game:HttpGet(URL)
+            return request({Url = URL, Method = "GET"}).Body -- #1
         end)
     
         if success then
@@ -30,7 +30,7 @@ if not Cached["Loaded"] then -- so we don't cause lag on re-execution
     end
     
     local apiData = GetAPIData()
-    apiData = HttpService:JSONDecode(apiData)
+    apiData = JsonAPI.parse(apiData)
     for _, entry in ipairs(apiData) do
         local entryType = entry.type
 
@@ -149,7 +149,7 @@ local Library = {
     }
 }
 
-Library.ItemBy =  getgenv()["Cached-#LinDEX"]["Loaded"]["ItemBy"]
+Library.ItemBy = getgenv()["Cached-#LinDEX"]["Loaded"]["ItemBy"]
 Library.GetInstancePath = function(inst)
     if typeof(inst) == "Instance" then
         local name = inst:GetFullName()
@@ -234,9 +234,9 @@ end
 if not getgenv()["Cached-#LinDEX"]["Loaded"]["__ran"] then
     getgenv()["Cached-#LinDEX"]["Loaded"]["__ran"] = true
     for i = 1, 2 do
-        game:GetService("HttpService"):JSONEncode(Library.GetItemBy("Name", "_"))
-        game:GetService("HttpService"):JSONEncode(Library.GetItemBy("Text", "_"))
-        game:GetService("HttpService"):JSONEncode(Library.GetItemBy("Health", 10))
+        local _ = (Library.GetItemBy("Name", "_"))
+        _ = (Library.GetItemBy("Text", "_"))
+        _ = (Library.GetItemBy("Health", 10))
     end
 end
 
