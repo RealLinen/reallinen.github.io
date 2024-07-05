@@ -1,3 +1,4 @@
+-- Modified -> Fri Jul 5th
 local LinenModule = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/LinenModule.lua"))()
 local Cache = LinenModule["Cache"]
 local library = {
@@ -969,11 +970,14 @@ Cache.add(keybindTextButton.MouseButton1Click:Connect(function()
     keybindOuterText.Text = "..."
     keybindOuterUIStroke.Color = Theme.ItemUIStrokeSelected
     KeybindConnection = UserInputService.InputBegan:Connect(function(Key, gameProcessed)
-        if not table.find(Blacklist, Key.KeyCode) and not gameProcessed then
+        if not table.find(Blacklist, Key.Name) and not gameProcessed then
             KeybindConnection:Disconnect()
-            keybindOuterText.Text = Key.KeyCode.Name
+            keybindOuterText.Text = Key.Name
             keybindOuterUIStroke.Color = Theme.ToggleOuterUIStroke
-            PressKey = Key.KeyCode
+            PressKey = Key
+            if Info.Flag then
+                library.Flags[Info.Flag] = Key.Name -- "Enum.UserInputType.MouseButton1 turns into MouseButton1"
+            end
             task.wait(.1)
             Changing = false
         end
@@ -981,8 +985,13 @@ Cache.add(keybindTextButton.MouseButton1Click:Connect(function()
 end))
 
 Cache.add(UserInputService.InputBegan:Connect(function(Key, gameProcessed)
-    if not Changing and Key.KeyCode == PressKey and not gameProcessed then
-        task.spawn(Info.Callback)
+    if not Changing and Key == PressKey and not gameProcessed then
+        task.spawn(Info.Callback, true)
+    end
+end))
+Cache.add(UserInputService.InputEnded:Connect(function(Key, gameProcessed)
+    if not Changing and Key == PressKey and not gameProcessed then
+        task.spawn(Info.Callback, false)
     end
 end))
 end
