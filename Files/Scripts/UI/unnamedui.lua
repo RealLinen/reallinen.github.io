@@ -1,3 +1,4 @@
+return (function()
 -- Modified -> Fri Jul 5th
 local LinenModule = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/LinenModule.lua"))()
 local Cache = LinenModule["Cache"]
@@ -868,6 +869,9 @@ Info.Default = Info.Default or Enum.KeyCode.Alt
 Info.Callback = Info.Callback or function() end
 
 local PressKey = Info.Default
+if Info.Flag then
+    library.Flags[Info.Flag] = PressKey -- "Enum.UserInputType.MouseButton1 turns into MouseButton1"
+end
 
 local keybind = Instance.new("Frame")
 keybind.Name = "Keybind"
@@ -970,13 +974,20 @@ Cache.add(keybindTextButton.MouseButton1Click:Connect(function()
     keybindOuterText.Text = "..."
     keybindOuterUIStroke.Color = Theme.ItemUIStrokeSelected
     KeybindConnection = UserInputService.InputBegan:Connect(function(Key, gameProcessed)
+        local name = Key.KeyCode.Name
+        if name == "Unknown" then
+            name = Key.UserInputType.Name
+        elseif name == "Unknown" then
+            name = Key.UserInputState.Name
+        end
+
         if not table.find(Blacklist, Key.Name) and not gameProcessed then
             KeybindConnection:Disconnect()
-            keybindOuterText.Text = Key.Name
+            keybindOuterText.Text = name
             keybindOuterUIStroke.Color = Theme.ToggleOuterUIStroke
             PressKey = Key
             if Info.Flag then
-                library.Flags[Info.Flag] = Key.Name -- "Enum.UserInputType.MouseButton1 turns into MouseButton1"
+                library.Flags[Info.Flag] = name -- "Enum.UserInputType.MouseButton1 turns into MouseButton1"
             end
             task.wait(.1)
             Changing = false
@@ -1771,3 +1782,4 @@ return window
 end
 
 return library
+end)()
