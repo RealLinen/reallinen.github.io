@@ -1,6 +1,6 @@
--- LinDex V1.5.2 | Profile: https://v3rm.net/members/linen.418/
+-- LinDex V1.5.3 | Profile: https://v3rm.net/members/linen.418/
 -- Documentation: https://v3rm.net/threads/lindex-make-roblox-game-exploiting-easier.9629/
-
+--- Fixed :GetService detection method
 
 local start = (tick or os.clock)(); -- for debugging
 local Properties; -- gather all propertiies
@@ -80,7 +80,7 @@ if not Cached["Loaded"] then -- so we don't cause lag on re-execution
     -- Get all game services
     for i, v in next, game:GetChildren() do
         local success = pcall(function()
-            return game.GetChildren(game, game.GetService(game, v.Name))
+            return v:GetChildren()
         end)
         if success then
             Services[v.Name] = v
@@ -235,8 +235,6 @@ if not getgenv()["Cached-#LinDEX"]["Loaded"]["__ran"] then
     getgenv()["Cached-#LinDEX"]["Loaded"]["__ran"] = true
     for i = 1, 2 do
         local _ = (Library.GetItemBy("Name", "_"))
-        _ = (Library.GetItemBy("Text", "_"))
-        _ = (Library.GetItemBy("Health", 10))
     end
 end
 
