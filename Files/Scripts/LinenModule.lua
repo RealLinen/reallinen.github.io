@@ -169,7 +169,7 @@ Module["Loop"] = function(func: "Function to run in the loop", seconds: "Each se
 
         loopDone = false
         local suc, err = pcall(func, ...)
-        if not suc then Module["L_print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
+        if not suc and not Module["LoopIgnoreError"] then Module["L_print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
         loopDone = true
     end
 
@@ -192,7 +192,7 @@ Module["Loop"] = function(func: "Function to run in the loop", seconds: "Each se
     else
         WrapFunction(function(...)
             local suc, err = pcall(mainLoop, ...)
-            if not suc then Module["L_print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
+            if not suc and not Module["LoopIgnoreError"] then Module["L_print"]((" [ LuaLoop #%s Bug ]: "..tostring(err)):format(Module.LuaLoopCount)) end
         end, ...)
     end
     --|||||||||||||||
