@@ -1,8 +1,22 @@
+--[[
+if typeof(getreg()["linen#storage.count"]) ~= "number" then
+    getreg()["linen#storage.count"] = 1
+else
+
+	getreg()["linen#storage.count"] += 1
+end
+
+local scriptcount = (1 - 1) + getreg()["linen#storage.count"]
+local isCount = function()
+    return getreg()["linen#storage.count"] == scriptcount
+end
+]]
+
 -- Written by: reallinens [ on discord.com ]
 -- Optimized for performance, can be re-executed as many times as you want
 
 -- V3rmillion Profile: https://v3rm.net/members/linen.418/
--- Version 1.2
+-- Version 1.3 [ Fixed for current exploits ]
 
 --[[ Changelogs ->
    1.2 -
@@ -31,8 +45,8 @@ setmetatable(CustomData, {
     end
 })
 
-getgenv = getgenv or (getreg or debug and debug.getregistry) or function() return CustomData end
-getgenv = type(getgenv)=="function" and getgenv or CustomData -- Incase ur exploit is really shitty shitty
+getreg = getreg or (getreg or debug and debug.getregistry) or function() return CustomData end
+getreg = type(getreg)=="function" and getreg or CustomData -- Incase ur exploit is really shitty shitty
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     local create_folder = makefolder or createfolder or newfolder or make_folder or new_folder or create_folder
     local folder_exist = isfolder or is_folder or folderexist or folder_exist
@@ -175,7 +189,7 @@ Module["Loop"] = function(func: "Function to run in the loop", seconds: "Each se
 
     local function mainLoop(...)
         local tim = tick()
-        while game:GetService("RunService").Heartbeat:Wait() and getgenv().LU_Loaded and not breakLoop do
+        while game:GetService("RunService").Heartbeat:Wait() and getreg().LU_Loaded and not breakLoop do
             if seconds then
                 if tick()-tim >= seconds-.1 then
                     tim = tick()
@@ -228,7 +242,7 @@ end
 --~~~~~~~~~~~~ Caching Framework
 Module.Cache = {
     add = function(value: any, name: string)
-        local GlobalCache = getgenv().LU_Loaded or Module
+        local GlobalCache = getreg().LU_Loaded or Module
         local cacheName = name or #GlobalCache["Cache"]+1
 
         GlobalCache["Cache"][cacheName] = value
@@ -236,7 +250,7 @@ Module.Cache = {
     end,
 
     del = function(name: string)
-        local GlobalCache = getgenv().LU_Loaded or Module
+        local GlobalCache = getreg().LU_Loaded or Module
         local cacheName = name or #GlobalCache["Cache"]+1
     
         Module:EndObject(GlobalCache["Cache"][cacheName], GlobalCache["Cache"], cacheName)    
@@ -314,8 +328,8 @@ Module.Storage = {
 function Module:Load(force) 
     if not force and Module.Loaded then return; end -- If you want to re-load the module for some reason [ not recommended ]
 
-    if type(getgenv().LU_Loaded) == "table" then
-        for i, ev in next, getgenv().LU_Loaded["Cache"] do
+    if type(getreg().LU_Loaded) == "table" then
+        for i, ev in next, getreg().LU_Loaded["Cache"] do
             pcall(function() ev:Destroy() end)
             pcall(function() ev:Disconnect() end)
             pcall(function() ev:Remove() end)
@@ -323,7 +337,7 @@ function Module:Load(force)
         end
     end
 
-    getgenv().LU_Loaded = false
+    getreg().LU_Loaded = false
 
     for i = 1, 5 do 
         task.wait()
@@ -332,19 +346,19 @@ function Module:Load(force)
         RunService.PreRender:Wait() 
     end
 
-    getgenv().LU_Loaded = { startTime = tick(), Events = {}, Cache = {} }
+    getreg().LU_Loaded = { startTime = tick(), Events = {}, Cache = {} }
     if Module["getTableCount"](Module["Cache"]) > 0 then
         for i,v in next, Module["Cache"] do
             --add old acche
-            getgenv().LU_Loaded["Cache"][i]= v
+            getreg().LU_Loaded["Cache"][i]= v
         end
         Module["Cache"] = {}
     end
-    return getgenv().LU_Loaded 
+    return getreg().LU_Loaded 
 
 end
 --
-getgenv().LinenModule = Module
+getreg().LinenModule = Module
 return Module
 
 --[[ Usage Example:
@@ -354,7 +368,7 @@ local Storage: { Data: {}, Load: "function( folder_name: string )" }, Http: { GE
    
 for i,v in next, LinenModule do
     if i=="print" then continue; end
-    getgenv()[i] = v
+    getreg()[i] = v
 end
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 print(Loop, L_print, FileExist, FolderExist, CheckType, Storage) -- function, function, function, function, function, { Data: {}, Load: function }
