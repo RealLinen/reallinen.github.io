@@ -96,7 +96,7 @@ end)
 -- For debuggin
 Flux.Cache(FluxLib)
 FluxLib.Name = par[1] and par[1].Name or "â€‹" -- lets hope this protects us from most games lmao
-FluxLib.Parent = par[1]
+FluxLib.Parent = gethui and gethui() or par[1]
 if not FluxLib.Parent then
     assert(false, "whatever ur using is not supported") -- and is some shit if it doesn't support coregui
     return {}
