@@ -39,7 +39,7 @@ end)
 
 return iscount
 --[[
-local iscount = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/iscount.lua"))()() -- Call it 2 times to load it
+local iscount = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/iscount.lua"))()("iscount", 0.75) -- the 2nd call loads it, u can provide custom arguments [ name of the file and delay before it stops old threads with the same file name using iscount ] -- delay = 0.75, name = iscount
 while task.wait(1) and iscount() do
     print(iscount()) -- re-execute and u will see that it changes the number while disabling the other prints. This is so loops don't continue when people re-execute ur script
 end
