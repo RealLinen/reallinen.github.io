@@ -1,5 +1,6 @@
 -- Revamped by Linen
 -- Discord: reallinens
+-- .1
 --[[
     * Less detectable
     * Old ui removes on re-execution and disconnects all :Connect events [ less connections, but they prob get removed when the instance gets set to nil so fjiweuhbgjiwjg lmao ]
@@ -119,8 +120,7 @@ local function MakeDraggable(topbarobject, object)
 
 	local function Update(input)
 		local Delta = input.Position - DragStart
-		local pos =
-			UDim2.new(
+		local pos = UDim2.new(
 				StartPosition.X.Scale,
 				StartPosition.X.Offset + Delta.X,
 				StartPosition.Y.Scale,
@@ -278,7 +278,7 @@ function Flux:Window(config)
 	ContainerFolder.Parent = MainFrame
 	
     local UiSize = UDim2.new(0, 506, 0, 484) -- 705
-    local HiddenSize = UDmi2.new(0, 50, 0, 50)
+    local HiddenSize = UDim2.new(0, 50, 0, 50)
 	MakeDraggable(Drag, MainFrame)
 	MakeDraggable(LeftFrame, MainFrame)
 	MainFrame:TweenSize(UiSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
