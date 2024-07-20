@@ -6,6 +6,8 @@
     * New methods, instead Tab:Button("name", function() end), its more like Tab:Button({ Name = "Name", Callback = function() print("Clicked") end })
     * Fixed some parts in the code that would be helpful to the user
     * Added Flags
+    * Fix cooldown on visibility keybind
+    * Fixed visibility
 ]]
 local function FindSafeSpot(inst, index, func)
     local rank = {}
@@ -275,23 +277,34 @@ function Flux:Window(config)
 	ContainerFolder.Name = "ContainerFolder"
 	ContainerFolder.Parent = MainFrame
 	
-	MakeDraggable(Drag,MainFrame)
-	MakeDraggable(LeftFrame,MainFrame)
-	MainFrame:TweenSize(UDim2.new(0, 706, 0, 484), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
+    local UiSize = UDim2.new(0, 506, 0, 484) -- 705
+    local HiddenSize = UDmi2.new(0, 50, 0, 50)
+	MakeDraggable(Drag, MainFrame)
+	MakeDraggable(LeftFrame, MainFrame)
+	MainFrame:TweenSize(UiSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 	
-	local uitoggled = false
+	local uitoggled = true
+    task.wait(.6)
 	Flux.Cache(UserInputService.InputBegan:Connect(
 		function(io, p)
-			if io.KeyCode == CloseBind then
-				if uitoggled == false then
-					MainFrame:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
+			if io.KeyCode == CloseBind and not Flux["UiOpenCache"] then
+                local del = .6
+				if not uitoggled then
+                    Flux["UiOpenCache"] = true
+                    MainFrame.Visible = true
+					MainFrame:TweenSize(HiddenSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, del, true)
 					uitoggled = true
 					task.wait(.5)
 					FluxLib.Enabled = false
+                    Flux["UiOpenCache"] = false
 				else
-					MainFrame:TweenSize(UDim2.new(0, 706, 0, 484), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
+                    Flux["UiOpenCache"] = true
+					MainFrame:TweenSize(UiSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, del, true)
 					FluxLib.Enabled = true
 					uitoggled = false
+                    task.wait(del)
+                    MainFrame.Visible = false
+                    Flux["UiOpenCache"] = false
 				end
 			end
 		end
@@ -1475,7 +1488,7 @@ function Flux:Window(config)
 					CurrentValueFrame:TweenSize(pos1, "Out", "Sine", 0.1, true)
 					SlideCircle:TweenPosition(pos, "Out", "Sine", 0.1, true)
 					local value = math.floor(((pos.X.Scale * max) / max) * (max - min) + min)
-                    if value.Text == ""..value then
+                    if Value.Text == ""..value then
                         return -- same value, ignore
                     end
 					Value.Text = tostring(value)
