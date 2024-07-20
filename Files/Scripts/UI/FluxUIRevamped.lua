@@ -1,6 +1,6 @@
 -- Revamped by Linen
 -- Discord: reallinens
--- .3
+-- .4
 --[[
     * Less detectable
     * Old ui removes on re-execution and disconnects all :Connect events [ less connections, but they prob get removed when the instance gets set to nil so fjiweuhbgjiwjg lmao ]
@@ -293,16 +293,17 @@ function Flux:Window(config)
                                         Flux["UiOpenCache"] = true
                                         MainFrame.Visible = true
 					MainFrame:TweenSize(UiSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, del, true)
+                                        task.wait(.5)
 					uitoggled = true
-					task.wait(.5)
 					FluxLib.Enabled = true
                                         Flux["UiOpenCache"] = false
 				else
                                         Flux["UiOpenCache"] = true
+                                        MainFrame.Visible = true
 					MainFrame:TweenSize(HiddenSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, del, true)
+                                        task.wait(del)
 					FluxLib.Enabled = false
 					uitoggled = false
-                                        task.wait(del)
                                         MainFrame.Visible = false
                                         Flux["UiOpenCache"] = false
 				end
