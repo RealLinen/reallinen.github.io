@@ -1,6 +1,6 @@
 -- Revamped by Linen
 -- Discord: reallinens
--- .8
+-- .9
 --[[
     * Less detectable
     * Old ui removes on re-execution and disconnects all :Connect events [ less connections, but they prob get removed when the instance gets set to nil so fjiweuhbgjiwjg lmao ]
@@ -3001,8 +3001,9 @@ function Flux:Window(config)
 	end
 	return Tabs
 end
-
+--[[
     -- All elements support flags
+    local Flux = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/UI/FluxUIRevamped.lua"))()
     local Window = Flux:Window({
         Name = "Baseplate",
         Name2 = "Flux UI",
@@ -3084,5 +3085,5 @@ end
     })
     -- : New Tab
     Window:Tab({ Text = "Tab 2", Icon = "6022668888" })
-
+]]
 return Flux
