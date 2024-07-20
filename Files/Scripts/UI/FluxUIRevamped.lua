@@ -1,6 +1,6 @@
 -- Revamped by Linen
 -- Discord: reallinens
--- .4
+-- .5
 --[[
     * Less detectable
     * Old ui removes on re-execution and disconnects all :Connect events [ less connections, but they prob get removed when the instance gets set to nil so fjiweuhbgjiwjg lmao ]
@@ -82,14 +82,18 @@ Flux.Cache(FluxLib)
 FluxLib.Name = "\x00​" -- lets hope this protects us from most games lmao
 FluxLib:SetAttribute("R", "RobloxGui")
 FluxLib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-FluxLib.Parent = FindSafeSpot(game:GetService("CoreGui"), nil, function(v, path) 
+local par = FindSafeSpot(game:GetService("CoreGui"), nil, function(v, path) 
     local is = v and v:IsA("ScreenGui")
     if is and v:GetAttribute("R") == "RobloxGui" then
         v:Destroy() -- delete old ui
         is = false
     end
     return is
-end)[1]
+end)
+
+-- For debuggin
+Flux.Parent = par
+FluxLib.Parent = par[1]
 
 if not FluxLib.Parent then
     assert("whatever ur using is not supported") -- and is some shit if it doesn't support coregui
@@ -292,8 +296,10 @@ function Flux:Window(config)
 				if not uitoggled then
                                         Flux["UiOpenCache"] = true
                                         MainFrame.Visible = true
+                                        FluxLib.Enabled = true
+                                        uitoggled = true
 					MainFrame:TweenSize(UiSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, del, true)
-                                        task.wait(.5)
+                                        task.wait(del)
 					uitoggled = true
 					FluxLib.Enabled = true
                                         Flux["UiOpenCache"] = false
