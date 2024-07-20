@@ -1,8 +1,9 @@
 -- since exploits don't universally support getgenv or getgenv doesn't save its value's, i wrote this alternative for now
 local writefile = writefile or dofile or createfile
 assert(writefile, "Exploit not supported! [ write file must exist ]")
-local iscount = (function(name, del)
+local iscount = (function(name, del, onend) -- string, number, functio
     del = type(del) == "number" and del or 0.75 -- delay before it stops the old threads/loops or whatever ur calling iscount() in
+    onend = type(onend) == "function" and onend or function() end -- when this script is re-executed with the same name
     local fname = ("%s.txt"):format("iscount"..(name or "linen"))
     local content;
     xpcall(function()
@@ -29,6 +30,7 @@ local iscount = (function(name, del)
             end
         end
         value = false
+        onend()
     end)
     
     return function()
