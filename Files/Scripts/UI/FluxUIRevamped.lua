@@ -1,6 +1,6 @@
 -- Revamped by Linen
 -- Discord: reallinens
--- .13
+-- .14
 --[[
     * Less detectable
     * Old ui removes on re-execution and disconnects all :Connect events [ less connections, but they prob get removed when the instance gets set to nil so fjiweuhbgjiwjg lmao ]
@@ -10,6 +10,7 @@
     * Fix cooldown on visibility keybind
     * Fixed visibility
 ]]
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/CloneRef.lua", true))()
 local function FindSafeSpot(inst, index, func)
     local rank = {}
     index = type(index) == "number" and index or math.huge
@@ -84,19 +85,15 @@ local Mouse = LocalPlayer:GetMouse()
 local FluxLib = Instance.new("ScreenGui")
 FluxLib:SetAttribute("R", "RobloxGui")
 FluxLib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-local par = gethui and {} or FindSafeSpot(game:GetService("CoreGui"), 8, function(v, path, count) 
+local par = FindSafeSpot(game:GetService("CoreGui"), 8, function(v, path, count) 
     local is = v and v:IsA("Frame") and path:find("Chat")
-    if path:find("ToggleCircle") then
-        -- blacklisted names known to not show UI
-        ls = false
-    end
     return is
 end)
 
 -- For debuggin
 Flux.Cache(FluxLib)
 FluxLib.Name = par[1] and par[1].Name or "-" -- lets hope this protects us from most games lmao
-FluxLib.Parent = gethui and gethui() or par[1]
+FluxLib.Parent = par[1] and cloneref(par[1])
 Flux.Parent = FluxLib.Parent
 if not FluxLib.Parent then
     assert(false, "whatever ur using is not supported") -- and is some shit if it doesn't support coregui
