@@ -1,6 +1,6 @@
 -- Revamped by Linen
 -- Discord: reallinens
--- .10
+-- .11
 --[[
     * Less detectable
     * Old ui removes on re-execution and disconnects all :Connect events [ less connections, but they prob get removed when the instance gets set to nil so fjiweuhbgjiwjg lmao ]
@@ -84,7 +84,7 @@ local Mouse = LocalPlayer:GetMouse()
 local FluxLib = Instance.new("ScreenGui")
 FluxLib:SetAttribute("R", "RobloxGui")
 FluxLib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-local par = FindSafeSpot(game:GetService("CoreGui"), 8, function(v, path, count) 
+local par = gethui and {} or FindSafeSpot(game:GetService("CoreGui"), 8, function(v, path, count) 
     local is = v and v:IsA("Frame") and path:find("Chat")
     if path:find("ToggleCircle") then
         -- blacklisted names known to not show UI
@@ -95,8 +95,9 @@ end)
 
 -- For debuggin
 Flux.Cache(FluxLib)
-FluxLib.Name = par[1] and par[1].Name or "â€‹" -- lets hope this protects us from most games lmao
+FluxLib.Name = par[1] and par[1].Name or "-" -- lets hope this protects us from most games lmao
 FluxLib.Parent = gethui and gethui() or par[1]
+Flux.Parent = FluxLib.Parent
 if not FluxLib.Parent then
     assert(false, "whatever ur using is not supported") -- and is some shit if it doesn't support coregui
     return {}
@@ -398,7 +399,7 @@ function Flux:Window(config)
 		CloseBtn.Size = UDim2.new(0, 366, 0, 43)
 		CloseBtn.AutoButtonColor = false
 		CloseBtn.Font = Enum.Font.Gotham
-		CloseBtn.Text = buttontitle or "âœ…"
+		CloseBtn.Text = buttontitle or "Ã¢Å“â€¦"
 		CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 		CloseBtn.TextSize = 15.000
 		CloseBtn.TextTransparency = 1
@@ -1669,8 +1670,8 @@ function Flux:Window(config)
 
 			
 			Flux.Cache(Dropdown.MouseButton1Click:Connect(function()
-				if DropToggled == false then
-					Title.Text = Selected
+				if not DropToggled then
+					Title.Text = text..": "..Selected
 					Dropdown:TweenSize(UDim2.new(0, 457, 0, FrameSize), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 					TweenService:Create(
 						Title,
@@ -1710,7 +1711,7 @@ function Flux:Window(config)
 					task.wait(.4)
 					Container.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y)
 				else
-					Title.Text = Selected
+					Title.Text = text..": ".. Selected
 					Dropdown:TweenSize(UDim2.new(0, 457, 0, 43), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 					TweenService:Create(
 						Title,
@@ -1801,7 +1802,7 @@ function Flux:Window(config)
 				
 				Flux.Cache(Item.MouseButton1Click:Connect(function()
 					pcall(callback, v)
-					Title.Text = text
+					Title.Text = text..": "..text
 					Selected = v
 					DropToggled = not DropToggled
 					Dropdown:TweenSize(UDim2.new(0, 457, 0, 43), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
@@ -1893,7 +1894,7 @@ function Flux:Window(config)
 
 				Flux.Cache(Item.MouseButton1Click:Connect(function()
 					pcall(callback, addtext)
-					Title.Text = text
+					Title.Text = text..": "..text
 					Selected = addtext
 					DropToggled = not DropToggled
 					Dropdown:TweenSize(UDim2.new(0, 457, 0, 43), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
@@ -1936,7 +1937,7 @@ function Flux:Window(config)
 					Container.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y)
 				end))
 				if DropToggled == true then
-					Title.Text = Selected
+					Title.Text = text..": "..Selected
 					Dropdown:TweenSize(UDim2.new(0, 457, 0, 43), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 					TweenService:Create(
 						Title,
@@ -1986,8 +1987,8 @@ function Flux:Window(config)
 						v:Destroy()
 					end
 				end
-				if DropToggled == true then
-					Title.Text = Selected
+				if DropToggled then
+					Title.Text = text..": "..Selected
 					Dropdown:TweenSize(UDim2.new(0, 457, 0, 43), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 					TweenService:Create(
 						Title,
