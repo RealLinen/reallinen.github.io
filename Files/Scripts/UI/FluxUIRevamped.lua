@@ -1,6 +1,6 @@
 -- Revamped by Linen
 -- Discord: reallinens
--- .12
+-- .13
 --[[
     * Less detectable
     * Old ui removes on re-execution and disconnects all :Connect events [ less connections, but they prob get removed when the instance gets set to nil so fjiweuhbgjiwjg lmao ]
@@ -1555,7 +1555,7 @@ function Flux:Window(config)
 
             local text, list, callback = config.Name, config.List, config.Callback
 			local DropFunc = {}
-			local Selected = text
+			local Selected = ""
 			local FrameSize = 43
 			local ItemCount = 0
 			local DropToggled = false
@@ -1894,7 +1894,7 @@ function Flux:Window(config)
 
 				Flux.Cache(Item.MouseButton1Click:Connect(function()
 					pcall(callback, addtext)
-					Title.Text = text..": "..text
+					Title.Text = text..": "..addtext
 					Selected = addtext
 					DropToggled = not DropToggled
 					Dropdown:TweenSize(UDim2.new(0, 457, 0, 43), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
