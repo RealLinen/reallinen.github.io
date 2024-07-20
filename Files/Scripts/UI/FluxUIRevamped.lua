@@ -1,6 +1,6 @@
 -- Revamped by Linen
 -- Discord: reallinens
--- .1
+-- .2
 --[[
     * Less detectable
     * Old ui removes on re-execution and disconnects all :Connect events [ less connections, but they prob get removed when the instance gets set to nil so fjiweuhbgjiwjg lmao ]
@@ -277,14 +277,14 @@ function Flux:Window(config)
 	ContainerFolder.Name = "ContainerFolder"
 	ContainerFolder.Parent = MainFrame
 	
-    local UiSize = UDim2.new(0, 506, 0, 484) -- 705
-    local HiddenSize = UDim2.new(0, 50, 0, 50)
+        local UiSize = UDim2.new(0, 705, 0, 484) -- 705
+        local HiddenSize = UDim2.new(0, 50, 0, 50)
 	MakeDraggable(Drag, MainFrame)
 	MakeDraggable(LeftFrame, MainFrame)
 	MainFrame:TweenSize(UiSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 	
 	local uitoggled = true
-    task.wait(.6)
+         ask.wait(.6)
 	Flux.Cache(UserInputService.InputBegan:Connect(
 		function(io, p)
 			if io.KeyCode == CloseBind and not Flux["UiOpenCache"] then
