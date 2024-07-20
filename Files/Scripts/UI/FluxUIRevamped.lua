@@ -1,6 +1,6 @@
 -- Revamped by Linen
 -- Discord: reallinens
--- .2
+-- .3
 --[[
     * Less detectable
     * Old ui removes on re-execution and disconnects all :Connect events [ less connections, but they prob get removed when the instance gets set to nil so fjiweuhbgjiwjg lmao ]
@@ -278,33 +278,33 @@ function Flux:Window(config)
 	ContainerFolder.Parent = MainFrame
 	
         local UiSize = UDim2.new(0, 705, 0, 484) -- 705
-        local HiddenSize = UDim2.new(0, 50, 0, 50)
+        local HiddenSize = UDim2.new(0, 1, 0, 484)
 	MakeDraggable(Drag, MainFrame)
 	MakeDraggable(LeftFrame, MainFrame)
 	MainFrame:TweenSize(UiSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
 	
 	local uitoggled = true
-         ask.wait(.6)
+        task.wait(.6)
 	Flux.Cache(UserInputService.InputBegan:Connect(
 		function(io, p)
 			if io.KeyCode == CloseBind and not Flux["UiOpenCache"] then
-                local del = .6
+                                local del = .6
 				if not uitoggled then
-                    Flux["UiOpenCache"] = true
-                    MainFrame.Visible = true
-					MainFrame:TweenSize(HiddenSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, del, true)
+                                        Flux["UiOpenCache"] = true
+                                        MainFrame.Visible = true
+					MainFrame:TweenSize(UiSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, del, true)
 					uitoggled = true
 					task.wait(.5)
-					FluxLib.Enabled = false
-                    Flux["UiOpenCache"] = false
-				else
-                    Flux["UiOpenCache"] = true
-					MainFrame:TweenSize(UiSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, del, true)
 					FluxLib.Enabled = true
+                                        Flux["UiOpenCache"] = false
+				else
+                                        Flux["UiOpenCache"] = true
+					MainFrame:TweenSize(HiddenSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, del, true)
+					FluxLib.Enabled = false
 					uitoggled = false
-                    task.wait(del)
-                    MainFrame.Visible = false
-                    Flux["UiOpenCache"] = false
+                                        task.wait(del)
+                                        MainFrame.Visible = false
+                                        Flux["UiOpenCache"] = false
 				end
 			end
 		end
