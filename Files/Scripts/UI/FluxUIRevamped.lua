@@ -2982,6 +2982,7 @@ end
 
 --[[
     -- All elements support flags
+    local Flux = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/UI/FluxUIRevamped.lua"))()
     local Window = Flux:Window({
         Name = "Baseplate",
         Name2 = "Flux UI",
