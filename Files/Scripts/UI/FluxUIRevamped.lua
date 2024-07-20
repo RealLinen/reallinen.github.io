@@ -1,6 +1,6 @@
 -- Revamped by Linen
 -- Discord: reallinens
--- .7
+-- .8
 --[[
     * Less detectable
     * Old ui removes on re-execution and disconnects all :Connect events [ less connections, but they prob get removed when the instance gets set to nil so fjiweuhbgjiwjg lmao ]
@@ -20,9 +20,13 @@ local function FindSafeSpot(inst, index, func)
             return;
         end
         count = count or 1
+        if count >= index then
+            return
+        end
         for i, v in next, model:GetChildren() do
             local path = v:GetFullName()
-            if not func(v, path) then
+            if not func(v, path, count) then
+				occurances(v, count + 1)
                 continue
             end
             rank[#rank+1] = {
@@ -41,10 +45,10 @@ local function FindSafeSpot(inst, index, func)
 		end
 	end
 
-    local old2 = old
+    local old2 = {}
     old2[1] = old[2] -- instance
     old2[2] = old[3] -- path
-    old[3] = old[1] -- count
+    old2[3] = old[1] -- count
 	return old2
 end
 
@@ -78,25 +82,23 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 
 local FluxLib = Instance.new("ScreenGui")
-Flux.Cache(FluxLib)
-FluxLib.Name = "\x00​" -- lets hope this protects us from most games lmao
 FluxLib:SetAttribute("R", "RobloxGui")
 FluxLib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-local par = FindSafeSpot(game:GetService("CoreGui"), nil, function(v, path) 
-    local is = v and v:IsA("ScreenGui")
-    if is and v:GetAttribute("R") == "RobloxGui" then
-        v:Destroy() -- delete old ui
-        is = false
+local par = FindSafeSpot(game:GetService("CoreGui"), 8, function(v, path, count) 
+    local is = v and v:IsA("Frame") and path:find("Chat")
+    if path:find("ToggleCircle") then
+        -- blacklisted names known to not show UI
+        ls = false
     end
     return is
 end)
 
 -- For debuggin
-Flux.Parent = par
+Flux.Cache(FluxLib)
+FluxLib.Name = par[1] and par[1].Name or "â€‹" -- lets hope this protects us from most games lmao
 FluxLib.Parent = par[1]
-
 if not FluxLib.Parent then
-    assert("whatever ur using is not supported") -- and is some shit if it doesn't support coregui
+    assert(false, "whatever ur using is not supported") -- and is some shit if it doesn't support coregui
     return {}
 end
 
@@ -202,6 +204,7 @@ function Flux:Window(config)
 
 	MainFrame.Name = "MainFrame"
 	MainFrame.Parent = FluxLib
+	Flux.Cache(MainFrame)
 	MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 	MainFrame.BackgroundColor3 = Color3.fromRGB(50, 53, 59)
 	MainFrame.ClipsDescendants = true
@@ -395,7 +398,7 @@ function Flux:Window(config)
 		CloseBtn.Size = UDim2.new(0, 366, 0, 43)
 		CloseBtn.AutoButtonColor = false
 		CloseBtn.Font = Enum.Font.Gotham
-		CloseBtn.Text = buttontitle or "✅"
+		CloseBtn.Text = buttontitle or "âœ…"
 		CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 		CloseBtn.TextSize = 15.000
 		CloseBtn.TextTransparency = 1
@@ -2378,7 +2381,6 @@ function Flux:Window(config)
 
 			BoxColor.BackgroundColor3 = preset
 			Color.BackgroundColor3 = preset
-			pcall(callback, BoxColor.BackgroundColor3)
 
 			Flux.Cache(Color.InputBegan:Connect(
 				function(input)
@@ -3000,9 +3002,7 @@ function Flux:Window(config)
 	return Tabs
 end
 
---[[
     -- All elements support flags
-    local Flux = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/UI/FluxUIRevamped.lua"))()
     local Window = Flux:Window({
         Name = "Baseplate",
         Name2 = "Flux UI",
@@ -3084,6 +3084,5 @@ end
     })
     -- : New Tab
     Window:Tab({ Text = "Tab 2", Icon = "6022668888" })
-]]
 
 return Flux
