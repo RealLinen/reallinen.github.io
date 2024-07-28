@@ -1,5 +1,5 @@
 -- better version of isver
-local iscount = function(name)
+local iscount = function(name, z, y)
     name = type(name) == "string" and name or "_"
 	name = "#-lincount-#" .. name
 	
@@ -11,9 +11,11 @@ local iscount = function(name)
 		num = v[name] + 1
 		v[name] = v[name] + 1
 	end
+	local f_called = false
+	z = type(z) == "function" and z or y
 	return function(m)
-        m = type(m) == "string" and m or name
-	    return v[m] == num and num
+            m = type(m) == "string" and m or name
+	    return v[m] == num and num or (function() if not f_called then if type(z) == "function" then pcall(z) end  end; f_called = true end)()
 	end
 end
 
