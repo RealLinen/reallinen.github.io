@@ -83,7 +83,6 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 
 local FluxLib = Instance.new("ScreenGui")
-FluxLib:SetAttribute("R", "RobloxGui")
 FluxLib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 local par = FindSafeSpot(game:GetService("CoreGui"), 8, function(v, path, count) 
     local is = v and v:IsA("Frame") and path:find("Chat")
