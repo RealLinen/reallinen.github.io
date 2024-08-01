@@ -1,6 +1,6 @@
 -- Revamped by Linen
 -- Discord: reallinens
--- .14
+-- .15
 --[[
     * Less detectable
     * Old ui removes on re-execution and disconnects all :Connect events [ less connections, but they prob get removed when the instance gets set to nil so fjiweuhbgjiwjg lmao ]
@@ -63,7 +63,7 @@ local Flux = {RainbowColorValue = 0, HueSelectionPosition = 0, Flags = {}, Cache
         return cache
     end
 })}
-local isCount = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/iscount.lua"))()("fluxui", 0.75, function()
+local isCount = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/iscount.lua"))()("fluxui", function()
     for i, v in next, Flux.Cache do
         if typeof(v) == "RBXScriptConnection" then
             v:Disconnect()
