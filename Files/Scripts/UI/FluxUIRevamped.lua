@@ -628,8 +628,8 @@ function Flux:Window(config)
         local function recursiveEncode(obj)
             if type(obj) == "table" then
                 local newTable = {}
-                for k, v in pairs(obj) do
-                    if type(v) == "function" then continue end
+                for k, v in next, obj do
+                    if typeof(v) == "function" then continue end
                     newTable[k] = recursiveEncode(v)
                 end
                 return encodeRobloxObject(newTable)
