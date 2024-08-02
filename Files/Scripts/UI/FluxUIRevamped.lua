@@ -1,9 +1,11 @@
 -- Revamped by Linen
 -- Discord: reallinens
--- .17
---[[ .17 FLAGS UPDATE
+-- .18
+--[[ .18 FLAGS UPDATE
     Flux.Flags:Get() -- get the flags in a JSON format so you can store and load it using Flux.Flags:Load() [ SUPPORTS Color3, Vector3, EnumItems and etc ]
-    Flux.FLags:Load(flags <string>) -- load the stringified JSON/flags
+    Flux.Flags:Load(flags <string>) -- load the stringified JSON/flags
+
+    Call Flux.Flags:Load() before creating elements
 ]]
 
 --[[
@@ -626,7 +628,8 @@ function Flux:Window(config)
         local function recursiveEncode(obj)
             if type(obj) == "table" then
                 local newTable = {}
-                for k, v in pairs(obj) do
+                for k, v in next, obj do
+                    if typeof(v) == "function" then continue end
                     newTable[k] = recursiveEncode(v)
                 end
                 return encodeRobloxObject(newTable)
@@ -643,6 +646,7 @@ function Flux:Window(config)
             if type(obj) == "table" then
                 local newTable = {}
                 for k, v in pairs(obj) do
+                    if type(v) == "function" then continue end
                     newTable[k] = recursiveDecode(v)
                 end
                 return decodeRobloxObject(newTable)
