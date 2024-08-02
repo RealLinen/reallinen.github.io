@@ -1,10 +1,11 @@
 -- Revamped by Linen
 -- Discord: reallinens
--- .16
---[[
+-- .17
+--[[ .17 FLAGS UPDATE
     Flux.Flags:Get() -- get the flags in a JSON format so you can store and load it using Flux.Flags:Load() [ SUPPORTS Color3, Vector3, EnumItems and etc ]
     Flux.FLags:Load(flags <string>) -- load the stringified JSON/flags
 ]]
+
 --[[
     * Less detectable
     * Old ui removes on re-execution and disconnects all :Connect events [ less connections, but they prob get removed when the instance gets set to nil so fjiweuhbgjiwjg lmao ]
