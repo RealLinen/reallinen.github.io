@@ -65,7 +65,7 @@ cls
 :: Minification
 if "%MODE%"=="1" (
     echo Minifying executeable...
-    .\upx\upx.exe --force --brute --no-lzma main2.exe -o main.exe
+    .\upx\upx.exe --force main2.exe -o main.exe
     del /f .\main2.exe
 ) else (
     echo Minifying C executeable...
