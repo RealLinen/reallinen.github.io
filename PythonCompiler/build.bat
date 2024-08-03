@@ -10,6 +10,8 @@ RMDIR /Q /S .\main.onefile-build
 cls
 
 :: Compatibility
+pip install pyarmor
+pip3 install pyarmor
 pip install -U pyinstaller
 pip3 install -U pyinstaller
 python -m pip install nuitka
