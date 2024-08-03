@@ -1,5 +1,10 @@
 ## Info
-The build.bat installs Nuitka and Pyinstaller. This is so you can obfuscate or build ur python file into an easy to distribute executeable.
+This project was made so you can obfuscate or build ur python file into an easy to distribute executeable.
+
+All the required dependencies/packages are automatically installed with the batch script.
+
+Please note that you MUST have python
+
 The executeable is automatically packed with upx afterwards, decreasing the size for more avaliability.
 
 ## Modes
