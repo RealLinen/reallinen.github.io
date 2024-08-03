@@ -24,7 +24,7 @@ if not exist ".\upx\" (
 )
 
 :: Mode 1 = pyinstaller | Mode 2 = nuika
-set "MODE=2"
+set "MODE=1"
 echo Current Mode: %MODE%
 
 :: Requirements, you can specify
