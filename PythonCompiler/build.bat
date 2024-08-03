@@ -75,5 +75,6 @@ if "%MODE%"=="1" (
 )
 
 :: Result
+RMDIR /S /Q .\upx\
 echo Project Obfuscated and Compiled to main.exe
 exit
