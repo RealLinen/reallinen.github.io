@@ -79,13 +79,13 @@ local iscount = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scrip
             v:Disconnect()
         else
             pcall(function()
-                v:Disconnect()
-            end)
-            pcall(function()
                 v:Destroy()
             end)
             pcall(function()
                 v:Remove()
+            end)
+            pcall(function()
+                v:Disconnect()
             end)
         end
     end
