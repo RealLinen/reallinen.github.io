@@ -1,5 +1,6 @@
 return (function()
--- Modified -> Fri Jul 5th
+-- Modified -> Fri Jul 5th 2024
+-- Modified -> Sat November 30th 2024
 local LinenModule = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/LinenModule.lua"))()
 local Cache = LinenModule["Cache"]
 local library = {
@@ -368,6 +369,7 @@ shadow.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 shadow.Parent = CoreGui
 
 Cache.add(shadow)
+window["UIElements"] = {shadow, unnamed}
 
 local mainShadow = Instance.new("ImageLabel")
 mainShadow.Name = "MainShadow"
