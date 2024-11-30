@@ -69,12 +69,31 @@
         }
 
 ]]
-if httpget then
-  loadstring(httpget("https://linenapi.linenporches.repl.co/Files/Scripts/CeleryHttpFix.lua"))()
-end
 
-loadstring(game:HttpGet("https://linenapi.linenporches.repl.co/Files/Scripts/CacheHDL.lua"))()
-local getCache, addCache, delCache = function(...)return cacheHDL.getCache(...) end, function(...)return cacheHDL.addCache(...) end, function(...)return cacheHDL.delCache(...) end
+-- :: Load Modules
+local EventsCache = {}
+local iscount = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/iscount.lua"))()("pphudUI", function()
+    --print("[...] Removing Hooks")
+    for _, v in next, EventsCache do
+        if typeof(v) == "RBXScriptSignal" or typeof(v) == "RBXScriptConnection" then
+            v:Disconnect()
+        else
+            pcall(function()
+                v:Disconnect()
+            end)
+            pcall(function()
+                v:Destroy()
+            end)
+            pcall(function()
+                v:Remove()
+            end)
+        end
+    end
+end) -- (name: string, onloopend: function)
+
+local addCache = function(v)
+    EventsCache[#EventsCache + 1] = v
+end
 
 local library = {
   flags = {},
