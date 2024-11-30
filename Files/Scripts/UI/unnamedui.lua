@@ -1,6 +1,6 @@
 return (function()
 -- Modified -> Fri Jul 5th 2024
--- Modified -> Sat November 30th 2024
+-- Modified -> Sat November 30th 2024 [ 6:10 AM ]
 local LinenModule = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/LinenModule.lua"))()
 local Cache = LinenModule["Cache"]
 local library = {
@@ -1737,7 +1737,7 @@ Cache.add(buttonTextButton.MouseButton1Click:Connect(function()
 end))
 end
 
-return sectiontable
+return { SetText = function(text) buttonText.Text = text or buttonText.Text end }
 end
 
 function tabtable:Select()
