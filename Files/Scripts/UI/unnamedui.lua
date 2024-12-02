@@ -403,6 +403,7 @@ return (function()
         local unnamed = Instance.new("ScreenGui")
         unnamed.Name = HttpService:GenerateGUID(true)
         unnamed.ZIndexBehavior = Enum.ZIndexBehavior.Global
+        unnamed.IgnoreGuiInset = true
         unnamed.Parent = CoreGui
 
         Cache.add(unnamed)
