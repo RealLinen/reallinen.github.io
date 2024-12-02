@@ -869,10 +869,11 @@ return (function()
             function tabtable:Section(Info)
                 Info.Text = Info.Text or "Section"
                 Info.Side = Info.Side or "Left"
-                Info.Opened = Info.Opened or library.SectionsOpened
+                if typeof--[[type]](Info.Opened) == "nil" then
+                    Info.Opened = library.SectionsOpened
+                end
 
                 Sections = Sections - 3
-
                 local sectiontable = {}
 
                 local section = Instance.new("Frame")
