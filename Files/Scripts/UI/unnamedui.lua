@@ -1190,7 +1190,7 @@ return (function()
                     Cache.add(
                         UserInputService.InputBegan:Connect(
                             function(Key, gameProcessed)
-                                if not Changing and Key == PressKey and not gameProcessed then
+                                if Key == PressKey and not (Changing or gameProcessed) then
                                     task.spawn(Info.Callback, true)
                                 end
                             end
@@ -1199,7 +1199,7 @@ return (function()
                     Cache.add(
                         UserInputService.InputEnded:Connect(
                             function(Key, gameProcessed)
-                                if not Changing and Key == PressKey and not gameProcessed then
+                                if Key == PressKey and not (Changing or gameProcessed) then
                                     task.spawn(Info.Callback, false)
                                 end
                             end
