@@ -1,8 +1,8 @@
 return (function()
     -- Modified -> Fri Jul 5th 2024
-    -- Modified -> Sat November 30th 2024 [ 6:20 AM ]
+    -- Modified -> Thursday 5 2024 [ 10:20 AM ]
     local uiCon = {}
-    local iscount = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/iscount.lua"))()(nil, function() --print("[...] Removing Hooks")
+    local iscount = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/iscount.lua"))()("unnamedui", function() --print("[...] Removing Hooks")
     for _, v in next, uiCon do
         if typeof(v) == "RBXScriptSignal" or typeof(v) == "RBXScriptConnection" then
             v:Disconnect()
