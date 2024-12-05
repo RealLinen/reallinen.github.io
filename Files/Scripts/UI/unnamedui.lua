@@ -1,8 +1,27 @@
 return (function()
     -- Modified -> Fri Jul 5th 2024
     -- Modified -> Sat November 30th 2024 [ 6:20 AM ]
-    local LinenModule = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/LinenModule.lua"))()
-    local Cache = LinenModule["Cache"]
+    local uiCon = {}
+    local iscount = loadstring(game:HttpGet("https://reallinen.github.io/Files/Scripts/iscount.lua"))()(nil, function() --print("[...] Removing Hooks")
+    for _, v in next, uiCon do
+        if typeof(v) == "RBXScriptSignal" or typeof(v) == "RBXScriptConnection" then
+            v:Disconnect()
+        else
+            pcall(function()
+                v:Disconnect()
+            end)
+            pcall(function()
+                v:Destroy()
+            end)
+            pcall(function()
+                v:Remove()
+            end)
+        end
+    end
+    end)
+    local addCache = function(v) 
+        uiCon[#uiCon+1] = v
+    end
     local library = {
         Flags = {},
         SectionsOpened = false,
@@ -187,7 +206,7 @@ return (function()
     notifications.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     notifications.Parent = CoreGui
 
-    Cache.add(notifications)
+    addCache(notifications)
 
     local notificationHolder = Instance.new("Frame")
     notificationHolder.Name = "NotificationHolder"
@@ -334,7 +353,7 @@ return (function()
         if not Info.Timeout then
             notificationCloseButton.Visible = true
 
-            Cache.add(
+            addCache(
                 notificationCloseButton.MouseButton1Click:Connect(
                     function()
                         task.spawn(Info.Callback)
@@ -406,7 +425,7 @@ return (function()
         unnamed.IgnoreGuiInset = true
         unnamed.Parent = CoreGui
 
-        Cache.add(unnamed)
+        addCache(unnamed)
 
         local shadow = Instance.new("ScreenGui")
         shadow.Name = HttpService:GenerateGUID(true)
@@ -414,7 +433,7 @@ return (function()
         shadow.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
         shadow.Parent = CoreGui
 
-        Cache.add(shadow)
+        addCache(shadow)
         window["UIElements"] = {shadow, unnamed}
 
         local mainShadow = Instance.new("ImageLabel")
@@ -467,7 +486,7 @@ return (function()
             )
         end
 
-        Cache.add(
+        addCache(
             topbar.InputBegan:Connect(
                 function(input)
                     if
@@ -478,7 +497,7 @@ return (function()
                         dragStart = input.Position
                         startPos = main.Position
 
-                        Cache.add(
+                        addCache(
                             input.Changed:Connect(
                                 function()
                                     if input.UserInputState == Enum.UserInputState.End then
@@ -492,7 +511,7 @@ return (function()
             )
         )
 
-        Cache.add(
+        addCache(
             topbar.InputChanged:Connect(
                 function(input)
                     if
@@ -505,7 +524,7 @@ return (function()
             )
         )
 
-        Cache.add(
+        addCache(
             UserInputService.InputChanged:Connect(
                 function(input)
                     if input == dragInput and dragging then
@@ -554,7 +573,7 @@ return (function()
         closeButton.Size = UDim2.new(0, 17, 0, 17)
         closeButton.Parent = topbar
 
-        Cache.add(
+        addCache(
             closeButton.MouseEnter:Connect(
                 function()
                     TweenService:Create(
@@ -566,7 +585,7 @@ return (function()
             )
         )
 
-        Cache.add(
+        addCache(
             closeButton.MouseLeave:Connect(
                 function()
                     TweenService:Create(
@@ -578,7 +597,7 @@ return (function()
             )
         )
 
-        Cache.add(
+        addCache(
             closeButton.MouseButton1Click:Connect(
                 function()
                     unnamed:Destroy()
@@ -598,7 +617,7 @@ return (function()
         minimizeButton.Size = UDim2.new(0, 17, 0, 17)
         minimizeButton.Parent = topbar
 
-        Cache.add(
+        addCache(
             minimizeButton.MouseEnter:Connect(
                 function()
                     TweenService:Create(
@@ -610,7 +629,7 @@ return (function()
             )
         )
 
-        Cache.add(
+        addCache(
             minimizeButton.MouseLeave:Connect(
                 function()
                     TweenService:Create(
@@ -624,7 +643,7 @@ return (function()
 
         local Minimized = false
 
-        Cache.add(
+        addCache(
             minimizeButton.MouseButton1Click:Connect(
                 function()
                     Minimized = not Minimized
@@ -760,7 +779,7 @@ return (function()
             tabName.Size = UDim2.new(0, 118, 0, 25)
             tabName.Parent = tabFrame
 
-            Cache.add(
+            addCache(
                 tabFrame.MouseEnter:Connect(
                     function()
                         if SelectedTab == nil or SelectedTab ~= tab then
@@ -784,7 +803,7 @@ return (function()
                 )
             )
 
-            Cache.add(
+            addCache(
                 tabFrame.MouseLeave:Connect(
                     function()
                         if SelectedTab == nil or SelectedTab ~= tab then
@@ -965,7 +984,7 @@ return (function()
                 local SectionY = 28
                 local ContainerY = 0
 
-                Cache.add(
+                addCache(
                     itemContainer.ChildAdded:Connect(
                         function(v)
                             if v.ClassName ~= "UIListLayout" then
@@ -1008,7 +1027,7 @@ return (function()
                     end
                 )
 
-                Cache.add(
+                addCache(
                     sectionButton.MouseButton1Click:Connect(
                         function()
                             sectiontable:Select()
@@ -1110,7 +1129,7 @@ return (function()
                     keybindOuterText.Size = UDim2.new(1, 0, 0, 14)
                     keybindOuterText.Parent = keybindOuter
 
-                    Cache.add(
+                    addCache(
                         keybindFrame.MouseEnter:Connect(
                             function()
                                 TweenService:Create(
@@ -1122,7 +1141,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         keybindFrame.MouseLeave:Connect(
                             function()
                                 TweenService:Create(
@@ -1138,7 +1157,7 @@ return (function()
 
                     keybindOuter.Size = UDim2.new(0, TextBounds.X + 10, 0, 14)
 
-                    Cache.add(
+                    addCache(
                         keybindOuterText:GetPropertyChangedSignal("Text"):Connect(
                             function()
                                 TextBounds = keybindOuterText.TextBounds
@@ -1151,7 +1170,7 @@ return (function()
                     local KeybindConnection
                     local Changing = false
 
-                    Cache.add(
+                    addCache(
                         keybindTextButton.MouseButton1Click:Connect(
                             function()
                                 if KeybindConnection then
@@ -1187,7 +1206,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         UserInputService.InputBegan:Connect(
                             function(Key, gameProcessed)
                                 if Key == PressKey and not (Changing or gameProcessed) then
@@ -1196,7 +1215,7 @@ return (function()
                             end
                         )
                     )
-                    Cache.add(
+                    addCache(
                         UserInputService.InputEnded:Connect(
                             function(Key, gameProcessed)
                                 if Key == PressKey and not (Changing or gameProcessed) then
@@ -1319,7 +1338,7 @@ return (function()
                     dragButton.Size = UDim2.new(0, 9, 0, 9)
                     dragButton.Parent = dragIcon
 
-                    Cache.add(
+                    addCache(
                         sliderFrame.MouseEnter:Connect(
                             function()
                                 TweenService:Create(
@@ -1331,7 +1350,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         sliderFrame.MouseLeave:Connect(
                             function()
                                 TweenService:Create(
@@ -1348,7 +1367,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         dragButton.MouseButton1Down:Connect(
                             function()
                                 TweenService:Create(
@@ -1360,7 +1379,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         dragButton.MouseButton1Up:Connect(
                             function()
                                 TweenService:Create(
@@ -1383,13 +1402,13 @@ return (function()
                     local SizeFromScale = (MinSize + (MaxSize - MinSize)) * DefaultScale
                     SizeFromScale = SizeFromScale - (SizeFromScale % 2)
 
-                    Cache.add(
+                    addCache(
                         dragButton.MouseButton1Down:Connect(
                             function()
                                 -- Skidded from material ui hehe, sorry
                                 local MouseMove, MouseKill
                                 MouseMove =
-                                    Cache.add(
+                                    addCache(
                                     Mouse.Move:Connect(
                                         function()
                                             local Px = library:GetXY(sliderOuter)
@@ -1417,7 +1436,7 @@ return (function()
                                     )
                                 )
                                 MouseKill =
-                                    Cache.add(
+                                    addCache(
                                     UserInputService.InputEnded:Connect(
                                         function(UserInput)
                                             if UserInput.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -1492,7 +1511,7 @@ return (function()
                         )
                     end
 
-                    Cache.add(
+                    addCache(
                         inputFrame.MouseEnter:Connect(
                             function()
                                 TweenService:Create(
@@ -1504,7 +1523,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         inputFrame.MouseLeave:Connect(
                             function()
                                 TweenService:Create(
@@ -1516,7 +1535,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         textBox.Focused:Connect(
                             function()
                                 TweenService:Create(
@@ -1528,7 +1547,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         textBox.FocusLost:Connect(
                             function()
                                 TweenService:Create(
@@ -1641,7 +1660,7 @@ return (function()
                     dropdownUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
                     dropdownUIListLayout.Parent = dropdownContainer
 
-                    Cache.add(
+                    addCache(
                         dropdownFrame.MouseEnter:Connect(
                             function()
                                 TweenService:Create(
@@ -1653,7 +1672,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         dropdownFrame.MouseLeave:Connect(
                             function()
                                 TweenService:Create(
@@ -1670,7 +1689,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         dropdownTextButton.MouseButton1Down:Connect(
                             function()
                                 TweenService:Create(
@@ -1682,7 +1701,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         dropdownTextButton.MouseButton1Up:Connect(
                             function()
                                 TweenService:Create(
@@ -1776,7 +1795,7 @@ return (function()
                         dropdownElementButton.Size = UDim2.new(0, 171, 0, 24)
                         dropdownElementButton.Parent = dropdownElement
 
-                        Cache.add(
+                        addCache(
                             dropdownElement.MouseEnter:Connect(
                                 function()
                                     TweenService:Create(
@@ -1788,7 +1807,7 @@ return (function()
                             )
                         )
 
-                        Cache.add(
+                        addCache(
                             dropdownElement.MouseLeave:Connect(
                                 function()
                                     TweenService:Create(
@@ -1800,7 +1819,7 @@ return (function()
                             )
                         )
 
-                        Cache.add(
+                        addCache(
                             dropdownElementButton.MouseButton1Click:Connect(
                                 function()
                                     task.spawn(Info.Callback, dropdownElementText.Text)
@@ -1972,7 +1991,7 @@ return (function()
                         insidedropdown:Add(v)
                     end
 
-                    Cache.add(
+                    addCache(
                         SectionOpened:GetPropertyChangedSignal("Value"):Connect(
                             function()
                                 DropdownOpened = false
@@ -2006,7 +2025,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         dropdownTextButton.MouseButton1Click:Connect(
                             function()
                                 DropdownOpened = not DropdownOpened
@@ -2143,7 +2162,7 @@ return (function()
                     toggleUIStroke.Color = Theme.ItemUIStroke
                     toggleUIStroke.Parent = toggleFrame
 
-                    Cache.add(
+                    addCache(
                         toggleFrame.MouseEnter:Connect(
                             function()
                                 TweenService:Create(
@@ -2155,7 +2174,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         toggleFrame.MouseLeave:Connect(
                             function()
                                 TweenService:Create(
@@ -2172,7 +2191,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         toggleTextButton.MouseButton1Down:Connect(
                             function()
                                 TweenService:Create(
@@ -2184,7 +2203,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         toggleTextButton.MouseButton1Up:Connect(
                             function()
                                 TweenService:Create(
@@ -2256,7 +2275,7 @@ return (function()
                         toggletable:Set(true)
                     end
 
-                    Cache.add(
+                    addCache(
                         toggleTextButton.MouseButton1Click:Connect(
                             function()
                                 Enabled = not Enabled
@@ -2295,7 +2314,7 @@ return (function()
                     buttonUIStroke.Color = Theme.ItemUIStroke
                     buttonUIStroke.Parent = buttonFrame
 
-                    Cache.add(
+                    addCache(
                         buttonFrame.MouseEnter:Connect(
                             function()
                                 TweenService:Create(
@@ -2307,7 +2326,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         buttonFrame.MouseLeave:Connect(
                             function()
                                 TweenService:Create(
@@ -2346,7 +2365,7 @@ return (function()
                     buttonTextButton.Size = UDim2.new(0, 171, 0, 24)
                     buttonTextButton.Parent = buttonFrame
 
-                    Cache.add(
+                    addCache(
                         buttonTextButton.MouseButton1Down:Connect(
                             function()
                                 TweenService:Create(
@@ -2358,7 +2377,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         buttonTextButton.MouseButton1Up:Connect(
                             function()
                                 TweenService:Create(
@@ -2370,7 +2389,7 @@ return (function()
                         )
                     )
 
-                    Cache.add(
+                    addCache(
                         buttonTextButton.MouseButton1Click:Connect(
                             function()
                                 task.spawn(Info.Callback)
@@ -2453,7 +2472,7 @@ return (function()
                 ):Play()
             end
 
-            Cache.add(
+            addCache(
                 tabButton.MouseButton1Click:Connect(
                     function()
                         tabtable:Select()
