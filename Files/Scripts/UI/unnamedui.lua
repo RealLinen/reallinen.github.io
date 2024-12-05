@@ -1029,8 +1029,7 @@ return (function()
                 function sectiontable:Keybind(Info)
                     Info.Text = Info.Text or "Keybind"
                     Info.Default = Info.Default or Enum.KeyCode.Alt
-                    Info.Callback = Info.Callback or function()
-                        end
+                    Info.Callback = Info.Callback or function() end
 
                     local PressKey = Info.Default
                     if Info.Flag then
