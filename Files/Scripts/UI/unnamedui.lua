@@ -423,7 +423,7 @@ end
 
 function library:Window(Info)
     Info.Text = Info.Text or "Window"
-    Info.Toggle = Info.Toggle or Enum.KeyCode.Alt
+    Info.Toggle = Info.Toggle or Enum.KeyCode.LeftAlt
 
     local Theme = Themes[library.Theme]
 
