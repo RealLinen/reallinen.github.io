@@ -458,6 +458,7 @@ function library:Window(Info)
     mainShadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     mainShadow.BackgroundTransparency = 1
     mainShadow.Position = UDim2.new(0.339, 0, 0.279, 0)
+    mainShadow.Size = UDim2.new(0, 520, 0, 370)
     mainShadow.Parent = shadow
 
     local main = Instance.new("Frame")
@@ -467,7 +468,6 @@ function library:Window(Info)
     main.Position = UDim2.new(0.345, 0, 0.291, 0)
     main.Size = UDim2.new(0, 500, 0, 350)
     main.ClipsDescendants = true
-    mainShadow.Size = UDim2.new(main.Size.X.Scale, main.Size.X.Offset, main.Size.Y.Scale, main.Size.Y.Offset + 5)
     main.Parent = unnamed
 
     local uICorner = Instance.new("UICorner")
